@@ -68,7 +68,8 @@ input,select,textarea{width:100%;background:#0e1827;color:var(--text);border:1px
       <select id="sleep"><option>Gut</option><option>Okay</option><option>Schlecht</option></select>
       <button onclick="checkCoach()">Check auswerten</button>
       <div id="coachResult" class="coach" style="margin-top:12px">Dein Check-in erscheint hier.</div>
-      <p class="footer">Das ist eine einfache Orientierung, keine medizinische Diagnose und keine echte KI-Auswertung.</p>
+      <div id="coachLoad" class="stat" style="margin-top:10px;padding:12px"><b>Deine letzte Woche</b><div class="muted" style="font-size:13px;margin-top:5px">Deine gespeicherten Einheiten werden hier berücksichtigt.</div></div>
+      <p class="footer">RUNLAB Coach wertet deine Eingaben und gespeicherten Einheiten aus. Das ist eine Orientierung, keine medizinische Diagnose und keine echte KI-Auswertung.</p>
     </div>
   </div>
 
@@ -173,11 +174,20 @@ function renderWeek(){
  $('weeklyCoach').textContent=(a===b?'Wähle zwei unterschiedliche Lauftage. ':'')+'Lege Läufe möglichst nicht auf Fußballtage. Wenn sich die Woche voll anfühlt, ist ein Lauf weniger die bessere Entscheidung.';
 }
 function checkCoach(){
- const f=$('feel').value,s=$('sleep').value;let msg='';
+ const f=$('feel').value,s=$('sleep').value,now=new Date(),start=new Date(now);
+ start.setHours(0,0,0,0);start.setDate(start.getDate()-6);
+ const recent=getData().filter(x=>{if(!x.date)return false;const d=new Date(x.date+'T12:00:00');return d>=start&&d<=now;});
+ const football=recent.filter(x=>/fußball|spiel/i.test(String(x.type||''))).length;
+ const runs=recent.filter(x=>isRun(x)),runKm=runs.reduce((n,x)=>n+Number(x.km||0),0);
+ const other=recent.length-football-runs.length;
+ $('coachLoad').innerHTML='<b>Deine letzte Woche</b><div class="muted" style="font-size:13px;margin-top:5px">'+recent.length+' gespeicherte Einheiten · '+football+' Fußball/Spiel · '+runs.length+' Läufe · '+runKm.toFixed(1)+' Lauf-km'+(other?' · '+other+' sonstige':'')+'</div>';
+ let msg='';
  if(f==='pain')msg='Heute nicht laufen. Bei Schmerzen oder Krankheit mit einem Elternteil sprechen und bei Bedarf medizinisch abklären lassen.';
- else if(f==='tired'||s==='Schlecht')msg='Heute lieber pausieren oder nur den normalen Alltag machen. Keine Laufeinheit nachholen.';
- else if(f==='okay'||s==='Okay')msg='Wenn du überhaupt läufst, dann nur sehr locker und kürzer. Bei zunehmender Müdigkeit abbrechen.';
- else msg='Du fühlst dich erholt. Halte dich trotzdem an den lockeren Plan und sprich die zusätzliche Belastung mit deinem Trainer ab.';
+ else if(f==='tired'||s==='Schlecht')msg='Heute lieber pausieren. Erholung ist Teil des Trainings – eine ausgelassene Einheit muss nicht nachgeholt werden.';
+ else if(recent.length>=4)msg='In den letzten 7 Tagen sind bereits mehrere Einheiten gespeichert. Plane heute keinen zusätzlichen Lauf automatisch ein. Erholung und Rücksprache mit deinem Trainer gehen vor.';
+ else if(f==='okay'||s==='Okay')msg='Du bist nicht ganz frisch. Wenn du heute aktiv bist, halte es leicht und beende es, wenn du dich schlechter fühlst. Ein Ruhetag ist völlig okay.';
+ else if(football>=2)msg='Du hast bereits Fußballbelastung in deiner Woche. Ein zusätzlicher Lauf ist nicht nötig, nur weil er im Plan steht. Achte auf Erholung und sprich Zusatztraining mit deinem Trainer ab.';
+ else msg='Deine Angaben klingen erstmal okay. Halte dich an den vorsichtigen Rahmen und sprich zusätzliche Laufeinheiten mit deinem Trainer und deinen Eltern ab.';
  $('coachResult').textContent=msg;
 }
 function calcPace(){
