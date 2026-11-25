@@ -183,7 +183,6 @@ function importFitbit(){
    for(const a of rows){
     const name=String(a.activityName||a.name||a.activity||a.logType||'').toLowerCase();
     const typeText=String(a.activityType||a.activityTypeName||a.name||a.activityName||'').toLowerCase();
-    if(!(name.includes('run')||name.includes('lauf')||typeText.includes('run')||typeText.includes('lauf')||Number(a.activityTypeId)===跑TypeId)){}
     const isRun=name.includes('run')||name.includes('lauf')||typeText.includes('run')||typeText.includes('lauf')||Number(a.activityTypeId)===90009||Number(a.activityTypeId)===90010;
     if(!isRun){skipped++;continue;}
     const rawDate=a.startTime||a.originalStartTime||a.date||a.startDate||'';
