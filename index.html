@@ -302,7 +302,7 @@ body.dark-mode .notification-empty{color:#eef4ee}
 .menu-trigger[aria-expanded="true"] span:last-child{transform:translateY(-7px) rotate(-45deg)}
 .drawer-backdrop{position:fixed;inset:0;z-index:1000;background:rgba(4,10,15,.48);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);opacity:0;visibility:hidden;transition:opacity .3s ease,visibility .3s ease}
 .drawer-backdrop.visible{opacity:1;visibility:visible}
-.nav-drawer{position:fixed;z-index:1001;inset:0 auto 0 0;width:min(330px,86vw);padding:25px 18px calc(24px + env(safe-area-inset-bottom));display:flex;flex-direction:column;background:rgba(250,252,250,.96);color:#17251e;border-right:1px solid rgba(20,60,42,.1);box-shadow:20px 0 60px rgba(0,0,0,.2);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);transform:translateX(-105%);transition:transform .38s cubic-bezier(.22,.85,.25,1);visibility:hidden}
+.nav-drawer{position:fixed;z-index:1001;inset:0 auto 0 0;width:min(330px,86vw);padding:25px 18px calc(24px + env(safe-area-inset-bottom));display:flex;flex-direction:column;overflow-y:auto;overscroll-behavior:contain;background:rgba(250,252,250,.96);color:#17251e;border-right:1px solid rgba(20,60,42,.1);box-shadow:20px 0 60px rgba(0,0,0,.2);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);transform:translateX(-105%);transition:transform .38s cubic-bezier(.22,.85,.25,1);visibility:hidden}
 .nav-drawer.open{transform:translateX(0);visibility:visible}
 .drawer-head{display:flex;align-items:center;justify-content:space-between;padding:7px 7px 24px;border-bottom:1px solid rgba(20,60,42,.1)}
 .drawer-head .brand{font-size:15px;color:#16865B;letter-spacing:.18em;font-weight:850}
