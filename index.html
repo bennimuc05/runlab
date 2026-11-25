@@ -138,6 +138,82 @@ button:hover{transform:translateY(-1px);filter:brightness(1.07)}
  .countdown-grid strong{font-size:clamp(23px,7vw,32px)}
 }
 @media(prefers-reduced-motion:reduce){.tab-panel{animation:none}}
+
+/* RUNLAB V8 · Apple-inspired light glass interface */
+:root{
+ --bg:#f5f6f8;--panel:rgba(255,255,255,.78);--panel2:#eef1f5;--line:rgba(35,48,65,.09);
+ --text:#20242b;--muted:#737d8b;--lime:#a5d94f;--blue:#3979c9;
+}
+html{scroll-behavior:smooth}
+body{background:radial-gradient(ellipse at 12% 0%,#e7eff8 0,transparent 36%),#f5f6f8;color:#20242b;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,system-ui,sans-serif;letter-spacing:-.012em}
+.wrap{max-width:1160px;padding:28px 22px 70px}
+.brand{color:#6d9d2d}
+.top .muted{color:#8b929c}
+.pill{background:rgba(255,255,255,.7);border:1px solid rgba(35,48,65,.08);color:#66717e;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.tabs{background:rgba(255,255,255,.68);border:1px solid rgba(35,48,65,.07);border-radius:20px;box-shadow:0 8px 28px rgba(31,45,61,.06);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
+.tabs .tab{color:#657080;background:transparent;border:1px solid transparent;border-radius:13px;font-weight:650;transition:background .22s ease,color .22s ease,transform .22s cubic-bezier(.2,.8,.2,1)}
+.tabs .tab:hover{background:rgba(30,45,60,.05);color:#222a33}
+.tabs .tab.active{background:#202a35;color:#fff;border-color:transparent;box-shadow:0 4px 12px rgba(25,35,45,.14)}
+.hero{background:linear-gradient(135deg,#fff 0%,#f1f5f8 62%,#edf4e7 100%);border:1px solid rgba(35,48,65,.07);border-radius:30px;box-shadow:0 14px 42px rgba(38,55,75,.07);color:#20242b}
+.hero:before{border-color:#91bd5c35;box-shadow:0 0 0 28px #91bd5c0c,0 0 0 58px #91bd5c08}
+.hero:after{color:rgba(30,48,65,.045)}
+.hero .eyebrow{color:#719b3b}
+.hero h1{color:#20242b}
+.hero p{color:#687482}
+.grid{gap:13px}
+.stat,.card{background:rgba(255,255,255,.82);border:1px solid rgba(35,48,65,.07);border-radius:22px;box-shadow:0 8px 28px rgba(35,50,68,.045);color:#20242b;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.stat small,.muted{color:#77818e}
+.stat strong{color:#20242b}
+.stat .sub{color:#77818e}
+.card h2,.card h3{color:#252c34}
+.report-item{background:#f4f6f8;border:1px solid rgba(35,48,65,.06);border-radius:16px}
+.report-item .muted{color:#77818e}
+.day{background:#f1f4f7;border:1px solid rgba(35,48,65,.07);border-radius:16px;color:#303943}
+.day b{color:#788391}
+.day.run{background:#edf5e5;border-color:#c8dfad}
+.day.football{background:#edf3fa;border-color:#c9d9ec}
+.day.rest{opacity:1}
+button{background:#202a35;color:#fff;border-radius:13px;padding:12px 17px;box-shadow:0 4px 12px rgba(25,35,45,.10);transition:transform .22s cubic-bezier(.2,.8,.2,1),filter .2s ease,box-shadow .2s ease}
+button:active{transform:scale(.97)}
+button:hover{filter:brightness(1.08);transform:translateY(-1px);box-shadow:0 7px 18px rgba(25,35,45,.13)}
+button.secondary{background:#edf1f5;color:#34404d;border:1px solid rgba(35,48,65,.08);box-shadow:none}
+button.danger{background:#fff0f0;color:#a43e3e;box-shadow:none}
+input,select,textarea{background:rgba(248,250,252,.92);color:#26313c;border:1px solid rgba(35,48,65,.12);border-radius:13px;padding:12px}
+input::placeholder,textarea::placeholder{color:#9aa3ad}
+input:focus,select:focus,textarea:focus{border-color:#8aadd4;box-shadow:0 0 0 4px rgba(74,132,194,.12);outline:none}
+label{color:#788391}
+.coach{background:#eff6e9;color:#435b34;border:1px solid #dce9d1;border-left:3px solid #8dbd52;border-radius:15px}
+.notice{background:#fff7e9;color:#775a2c;border:1px solid #f0e1c5;border-left:3px solid #d5a44d;border-radius:15px}
+.tag{background:#eaf1f9;color:#49729f;border:1px solid #d7e4f2}
+.tag.green{background:#edf5e5;color:#638a36;border:1px solid #d9e8c8}
+.session{border-color:rgba(35,48,65,.08)}
+.bar,.stat-track{background:#e8edf1}
+.bar i,.stat-track i{background:linear-gradient(90deg,#8fbd4e,#b9dc7d)}
+.calendar .cal-label{color:#77818e}
+.calendar button.cal-day:not(.empty){background:#f0f3f6!important;color:#303943!important;border:1px solid #e0e5eb!important;text-shadow:none!important;box-shadow:none}
+.calendar button.cal-day.has-run{background:#edf5e5!important;color:#527a2c!important;border:1px solid #c8dfad!important}
+.calendar button.cal-day.today{outline:2px solid #76a5d6!important}
+.calendar button.cal-day.empty{background:transparent!important;border-color:transparent!important}
+.calendar button.cal-day:hover{background:#e6edf4!important;border-color:#b9cadd!important}
+.race-countdown{background:rgba(255,255,255,.64);border:1px solid rgba(60,80,100,.12);border-radius:20px;box-shadow:0 8px 24px rgba(40,55,70,.05);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
+.countdown-heading{color:#667b54}
+.countdown-dot{background:#8fbd4e;box-shadow:0 0 10px #8fbd4e55}
+.countdown-grid strong{color:#25303a}
+.countdown-grid span,.countdown-date{color:#778477}
+.footer{color:#87919c}
+.tab-panel{animation:panelIn .24s cubic-bezier(.2,.8,.2,1) both}
+@keyframes panelIn{from{opacity:.6;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+button:focus-visible,.tabs .tab:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid rgba(74,132,194,.35);outline-offset:2px}
+@media(max-width:700px){
+ .wrap{padding:16px 13px 100px}
+ .tabs{left:12px;right:12px;bottom:12px;padding:7px;background:rgba(255,255,255,.82);border:1px solid rgba(35,48,65,.09);border-radius:21px;box-shadow:0 8px 30px rgba(30,45,60,.14);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+ .tabs .tab{color:#687482;font-size:10px;border-radius:13px}
+ .tabs .tab.active{background:#202a35;color:#fff}
+ .hero{border-radius:25px}
+ .card,.stat{border-radius:19px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}}
+
 </style>
 </head>
 <body>
@@ -167,7 +243,7 @@ button:hover{transform:translateY(-1px);filter:brightness(1.07)}
     </div>
   </section>
   <div class="grid">
-    <div class="stat"><small>Wettkampf</small><strong>Juli '27</strong><div class="sub">Datum noch offen</div></div>
+    <div class="stat"><small>Wettkampf</small><strong>Juli '27</strong><div class="sub">04.07.2027 · 08:00 Uhr</div></div>
     <div class="stat"><small>Wunschziel</small><strong>1:45:00</strong><div class="sub">ambitionierte Vision</div></div>
     <div class="stat"><small>Zielpace</small><strong>4:59</strong><div class="sub">min/km – kein Trainingspace</div></div>
     <div class="stat"><small>Zusatzläufe</small><strong>2 / Woche</strong><div class="sub">nur bei guter Erholung & Freigabe</div></div>
