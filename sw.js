@@ -1,4 +1,4 @@
-const CACHE = "runlab-v3";
+const CACHE = "runlab-v4";
 const FILES = ["./", "./index.html", "./manifest.webmanifest", "./icon.svg"];
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(FILES)));
