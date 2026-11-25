@@ -236,7 +236,8 @@ function setupTabs(){
   const panel=document.createElement('section');panel.className='tab-panel'+(key==='dashboard'?' active':'');panel.id='panel-'+key;panels[key]=panel;wrap.appendChild(panel);
  });
  const report=document.createElement('div');report.className='card';report.style.marginTop='14px';report.innerHTML='<h2>🧾 Wochenbericht</h2><p class="muted" style="font-size:13px">Deine letzten 7 Tage im Vergleich zu den 7 Tagen davor.</p><div id="weeklyReport" class="report-grid"></div><div id="weeklyAdvice" class="coach" style="margin-top:12px"></div>';
- panels.dashboard.append(hero,grids[0],report);
+ const personal=document.createElement('div');personal.className='layout';personal.innerHTML='<div class="card"><h2>🎯 Dein aktueller Trainingsstatus</h2><div id="personalStatus" class="coach">Deine Daten werden ausgewertet …</div><h3 style="margin-top:16px">Lauf-Fortschritt · letzte 4 Wochen</h3><div id="progressChart" class="stat-bars"></div><p class="footer">Nur tatsächlich gespeicherte Laufeinheiten werden angezeigt. Fehlende Daten werden nicht geschätzt.</p></div><div class="card"><h2>🗓️ Die nächsten 7 Tage</h2><div id="nextSevenDays" class="stat-bars"></div><p class="footer">Orientierung anhand deiner ausgewählten Fußball- und möglichen Lauftage – keine automatische Kalender-Synchronisierung.</p></div>';
+ panels.dashboard.append(hero,grids[0],report,personal);
  if(layouts[0]){panels.plan.append(layouts[0].children[0]);panels.coach.append(layouts[0].children[0]);}
  if(layouts[1]){panels.plan.append(layouts[1].children[0]);panels.dashboard.append(layouts[1].children[0]);}
  if(fitbit)panels.training.append(fitbit);
@@ -253,11 +254,11 @@ function setupTabs(){
 function init(){
   setupTabs();
   ['runA','runB'].forEach(id=>$(id).innerHTML=days.map((d,i)=>`<option value="${i}">${['Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag','Sonntag'][i]}</option>`).join(''));
-  $('runA').value='1';$('runB').value='5';
+  $('runA').value='1';$('runB').value='5';[0,2,4].forEach(i=>$('football').options[i].selected=true);
   $('date').value=new Date().toISOString().slice(0,10);
-  $('football').addEventListener('change',renderWeek);
-  $('runA').addEventListener('change',renderWeek);$('runB').addEventListener('change',renderWeek);
-  renderWeek();renderSessions();renderCalendar();renderStats();renderWeeklyReport();renderWeeklyReport();
+  $('football').addEventListener('change',()=>{renderWeek();renderPersonalDashboard();});
+  $('runA').addEventListener('change',()=>{renderWeek();renderPersonalDashboard();});$('runB').addEventListener('change',()=>{renderWeek();renderPersonalDashboard();});
+  renderWeek();renderSessions();renderCalendar();renderStats();renderWeeklyReport();renderPersonalDashboard();
 }
 function renderWeek(){
  const football=[...$('football').selectedOptions].map(o=>+o.value),a=+$('runA').value,b=+$('runB').value;
@@ -297,7 +298,7 @@ function addSession(){
  const item={date:$('date').value,type:$('type').value,km:$('distance').value,duration:$('duration').value,effort:$('effort').value};
  if(!item.date||!item.duration){alert('Bitte Datum und Dauer eintragen.');return;}
  const data=getData();data.unshift(item);localStorage.setItem('runlab_sessions',JSON.stringify(data.slice(0,100)));
- $('distance').value='';$('duration').value='';renderSessions();renderCalendar();renderStats();
+ $('distance').value='';$('duration').value='';renderSessions();renderCalendar();renderStats();renderWeeklyReport();renderPersonalDashboard();
 }
 function renderSessions(){
  const data=getData();
@@ -325,6 +326,23 @@ function renderWeeklyReport(){
  if(runs.length&&change>0.1&&prevKm>0)advice+=' Deine Laufkilometer liegen über der Vorwoche ('+prevKm.toFixed(1)+' km). RUNLAB empfiehlt keine weitere Steigerung.';
  else if(runs.length&&prevKm===0)advice+=' Es gibt noch keine Vergleichswoche. Daher keine Steigerung aus den Daten ableiten.';
  $('weeklyAdvice').textContent=advice;
+}
+function renderPersonalDashboard(){
+ const data=getData().filter(x=>x.date),runs=data.filter(x=>isRun(x)&&Number(x.km)>0).sort((a,b)=>b.date.localeCompare(a.date));
+ const today=new Date();today.setHours(0,0,0,0);const since=new Date(today);since.setDate(since.getDate()-27);
+ const recent=runs.filter(x=>new Date(x.date+'T12:00:00')>=since);
+ const km=recent.reduce((n,x)=>n+Number(x.km),0);
+ const last=runs[0];
+ $('personalStatus').innerHTML=runs.length
+  ? '<b>'+recent.length+' Läufe in den letzten 28 Tagen</b><div style="margin-top:6px">'+km.toFixed(1)+' km dokumentiert · '+(last?'Letzter Lauf: '+new Date(last.date+'T12:00:00').toLocaleDateString('de-DE'):'Noch kein Laufdatum')+'</div><div class="muted" style="font-size:12px;margin-top:7px">'+(recent.length?'Dein Status basiert auf echten Einträgen. Steigere Umfang oder Tempo nicht automatisch.':'In den letzten 4 Wochen sind keine Läufe erfasst. Ein ruhiger Wiedereinstieg sollte erst nach Erholung und Rücksprache erfolgen.')+'</div>'
+  : '<b>Noch keine Laufdaten vorhanden</b><div style="margin-top:6px">Sobald du einen Lauf einträgst oder importierst, zeigt RUNLAB hier deinen persönlichen Status.</div><div class="muted" style="font-size:12px;margin-top:7px">Fußball zählt als Belastung – du musst keine Läufe ergänzen, nur um Zahlen zu füllen.</div>';
+ const weeks=[];
+ for(let i=3;i>=0;i--){const end=new Date(today);end.setDate(end.getDate()-i*7+6);end.setHours(23,59,59,999);const begin=new Date(end);begin.setDate(begin.getDate()-6);begin.setHours(0,0,0,0);const sum=runs.filter(x=>{const d=new Date(x.date+'T12:00:00');return d>=begin&&d<=end;}).reduce((n,x)=>n+Number(x.km),0);weeks.push({label:i===0?'Diese Woche':i===1?'Vorwoche':'-'+i+' Wo.',km:sum});}
+ const max=Math.max(1,...weeks.map(w=>w.km));
+ $('progressChart').innerHTML=weeks.some(w=>w.km>0)?weeks.map(w=>'<div class="stat-row"><span>'+w.label+'</span><div class="stat-track"><i style="width:'+Math.round(w.km/max*100)+'%"></i></div><b>'+w.km.toFixed(1)+' km</b></div>').join(''):'<p class="muted">Noch keine Laufdaten – das Diagramm füllt sich automatisch mit deinen Einträgen.</p>';
+ const football=[...$('football').selectedOptions].map(o=>+o.value),a=+$('runA').value,b=+$('runB').value;
+ const names=['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
+ $('nextSevenDays').innerHTML=Array.from({length:7},(_,i)=>{const d=new Date(today);d.setDate(d.getDate()+i);const weekday=(d.getDay()+6)%7;let label='Erholung / frei',cls='';if(football.includes(weekday)){label='Fußball';cls='tag';}else if(weekday===a||weekday===b){label='Optional: locker';cls='tag green';}return '<div class="session" style="display:flex;justify-content:space-between;gap:10px;align-items:center"><div><b>'+names[d.getDay()]+' · '+d.toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit'})+'</b></div><span class="'+cls+'">'+label+'</span></div>';}).join('');
 }
 function renderStats(){
  const runs=getData().filter(x=>isRun(x)&&Number(x.km)>0);
@@ -378,7 +396,7 @@ function importFitbit(){
    }
    if(!added){$('importResult').textContent='Keine neuen Lauf-Einträge gefunden. Prüfe, ob du die Fitbit-Aktivitätsdatei (JSON) ausgewählt hast.';return;}
    localStorage.setItem('runlab_sessions',JSON.stringify(existing.slice(0,100)));
-   renderSessions();renderCalendar();renderStats();renderWeeklyReport();$('importResult').textContent=added+' Lauf/Läufe importiert. '+skipped+' andere oder bereits vorhandene Einträge übersprungen.';
+   renderSessions();renderCalendar();renderStats();renderWeeklyReport();renderPersonalDashboard();$('importResult').textContent=added+' Lauf/Läufe importiert. '+skipped+' andere oder bereits vorhandene Einträge übersprungen.';
   }catch(e){$('importResult').textContent='Import nicht möglich: '+e.message+' Bitte eine Fitbit-Aktivitätsdatei im JSON-Format auswählen.';}
  };
  reader.readAsText(file);
