@@ -406,6 +406,14 @@ body.dark-mode .coach-bubble{background:rgba(27,42,50,.94);border-color:rgba(220
 @keyframes coachBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 @media(max-width:420px){.coach-companion{right:10px;width:calc(100vw - 20px);gap:5px}.coach-companion .coach-avatar{width:78px;height:98px;flex-basis:78px}.coach-bubble{font-size:12px;padding:10px 32px 10px 11px;margin-bottom:25px}}
 @media(prefers-reduced-motion:reduce){.coach-companion,.coach-companion .coach-avatar{transition:none;animation:none}}
+
+/* V14.1 FIX 2: Begruessungsbereich im mobilen Menue komplett sichtbar */
+#navDrawer .drawer-overview{overflow:visible!important;flex-shrink:0}
+#navDrawer .drawer-greeting{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;align-items:start!important;gap:8px!important;width:100%;min-height:46px;padding-bottom:2px}
+#navDrawer .drawer-greeting>div{display:block!important;min-width:0!important;width:100%!important;overflow:visible!important}
+#navDrawer #drawerGreeting{display:block!important;width:100%!important;max-width:none!important;height:auto!important;min-height:22px;white-space:normal!important;overflow:visible!important;text-overflow:clip!important;overflow-wrap:break-word!important;line-height:1.4!important;font-size:17px!important;padding:1px 0 2px}
+#navDrawer #drawerDate{display:block!important;width:100%!important;height:auto!important;white-space:normal!important;overflow:visible!important;text-overflow:clip!important;line-height:1.4!important}
+#navDrawer .drawer-live{align-self:start!important;margin-top:3px;white-space:nowrap!important}
 </style>
 </head>
 <body>
