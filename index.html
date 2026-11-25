@@ -10,6 +10,14 @@
 :root{--bg:#0b1220;--panel:#131e30;--panel2:#1a2940;--text:#eef4ff;--muted:#9aabc4;--line:#2b3b54;--lime:#b8f36b;--blue:#75b8ff;--orange:#ffbf69;--red:#ff8585}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 85% 0%,#1b3551 0,transparent 34%),var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
 .wrap{max-width:1100px;margin:auto;padding:22px 16px 50px}.top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:20px}.brand{font-weight:800;letter-spacing:.12em;font-size:12px;color:var(--lime)}.pill{border:1px solid var(--line);border-radius:999px;padding:6px 11px;color:var(--muted);font-size:12px}
+.tabs{display:flex;gap:7px;overflow-x:auto;padding:4px 1px 12px;margin-bottom:8px;scrollbar-width:thin}
+.tabs .tab{flex:0 0 auto;background:#17263a;color:#c4d3e7;border:1px solid #344761;padding:10px 13px;border-radius:12px;font-size:13px}
+.tabs .tab.active{background:var(--lime);color:#142012;border-color:var(--lime)}
+.tab-panel{display:none}.tab-panel.active{display:block}.tab-panel>.layout:first-child{margin-top:0}
+.report-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+.report-item{background:#1a2940;border:1px solid var(--line);border-radius:13px;padding:12px}
+.report-item b{display:block;font-size:21px;margin-top:3px}
+@media(max-width:600px){.report-grid{grid-template-columns:repeat(2,1fr)}.tabs{margin-right:-4px}}
 .hero{padding:26px;border:1px solid #34445d;border-radius:24px;background:linear-gradient(125deg,#17283e,#101b2c 65%,#203d39);position:relative;overflow:hidden}
 .hero:after{content:"21.1";position:absolute;right:20px;bottom:-40px;font-size:130px;font-weight:900;color:#ffffff08;pointer-events:none}
 .eyebrow{color:var(--lime);font-size:12px;font-weight:800;letter-spacing:.15em}.hero h1{font-size:clamp(28px,6vw,48px);line-height:1.05;margin:9px 0}.hero p{color:#c2d0e2;max-width:620px;margin:0}
@@ -32,6 +40,14 @@ input,select,textarea{width:100%;background:#0e1827;color:var(--text);border:1px
 <body>
 <div class="wrap">
   <div class="top"><div><div class="brand">RUNLAB / PERSONAL PERFORMANCE</div><div class="muted" style="font-size:12px">HALF MARATHON COMMAND CENTER</div></div><span class="pill">JULI 2027 · BETA</span></div>
+  <nav class="tabs" id="mainTabs" aria-label="RUNLAB Bereiche">
+    <button class="tab active" data-tab="dashboard">Dashboard</button>
+    <button class="tab" data-tab="plan">Plan</button>
+    <button class="tab" data-tab="coach">Coach</button>
+    <button class="tab" data-tab="training">Training</button>
+    <button class="tab" data-tab="calendar">Kalender</button>
+    <button class="tab" data-tab="stats">Statistik</button>
+  </nav>
   <section class="hero">
     <div class="eyebrow">DEIN LANGFRISTIGES PROJEKT</div>
     <h1>Run your own<br>race.</h1>
@@ -155,13 +171,43 @@ input,select,textarea{width:100%;background:#0e1827;color:var(--text);border:1px
 const days=['Mo','Di','Mi','Do','Fr','Sa','So'];
 const $=id=>document.getElementById(id);
 let calendarMonth=new Date(new Date().getFullYear(),new Date().getMonth(),1);
+function setupTabs(){
+ const wrap=document.querySelector('.wrap'),nodes=Array.from(wrap.children);
+ const top=nodes.find(n=>n.classList.contains('top'));
+ const hero=nodes.find(n=>n.classList.contains('hero'));
+ const grids=nodes.filter(n=>n.classList.contains('grid'));
+ const layouts=nodes.filter(n=>n.classList.contains('layout'));
+ const fitbit=nodes.find(n=>n.querySelector('#fitbitFile'));
+ const watch=nodes.find(n=>n.textContent.includes('Pixel Watch 3'));
+ const safety=nodes.find(n=>n.classList.contains('notice')&&n.textContent.includes('Gesundheit zuerst'));
+ const footer=nodes.find(n=>n.classList.contains('footer')&&n.textContent.includes('RUNLAB'));
+ const panels={};
+ Object.keys({dashboard:1,plan:1,coach:1,training:1,calendar:1,stats:1}).forEach(key=>{
+  const panel=document.createElement('section');panel.className='tab-panel'+(key==='dashboard'?' active':'');panel.id='panel-'+key;panels[key]=panel;wrap.appendChild(panel);
+ });
+ const report=document.createElement('div');report.className='card';report.style.marginTop='14px';report.innerHTML='<h2>🧾 Wochenbericht</h2><p class="muted" style="font-size:13px">Deine letzten 7 Tage im Vergleich zu den 7 Tagen davor.</p><div id="weeklyReport" class="report-grid"></div><div id="weeklyAdvice" class="coach" style="margin-top:12px"></div>';
+ panels.dashboard.append(hero,grids[0],report);
+ if(layouts[0]){panels.plan.append(layouts[0].children[0]);panels.coach.append(layouts[0].children[0]);}
+ if(layouts[1]){panels.plan.append(layouts[1].children[0]);panels.dashboard.append(layouts[1].children[0]);}
+ if(fitbit)panels.training.append(fitbit);
+ if(layouts[2]){panels.training.append(layouts[2].children[0]);panels.training.append(layouts[2].children[0]);}
+ if(layouts[3]){panels.calendar.append(layouts[3].children[0]);panels.stats.append(layouts[3].children[0]);}
+ if(watch)panels.dashboard.append(watch);
+ if(safety)panels.dashboard.append(safety);
+ if(footer)panels.dashboard.append(footer);
+ document.querySelectorAll('#mainTabs .tab').forEach(btn=>btn.addEventListener('click',()=>{
+  document.querySelectorAll('#mainTabs .tab').forEach(b=>b.classList.toggle('active',b===btn));
+  Object.entries(panels).forEach(([key,panel])=>panel.classList.toggle('active',key===btn.dataset.tab));
+ }));
+}
 function init(){
+  setupTabs();
   ['runA','runB'].forEach(id=>$(id).innerHTML=days.map((d,i)=>`<option value="${i}">${['Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag','Sonntag'][i]}</option>`).join(''));
   $('runA').value='1';$('runB').value='5';
   $('date').value=new Date().toISOString().slice(0,10);
   $('football').addEventListener('change',renderWeek);
   $('runA').addEventListener('change',renderWeek);$('runB').addEventListener('change',renderWeek);
-  renderWeek();renderSessions();renderCalendar();renderStats();
+  renderWeek();renderSessions();renderCalendar();renderStats();renderWeeklyReport();renderWeeklyReport();
 }
 function renderWeek(){
  const football=[...$('football').selectedOptions].map(o=>+o.value),a=+$('runA').value,b=+$('runB').value;
@@ -184,10 +230,10 @@ function checkCoach(){
  let msg='';
  if(f==='pain')msg='Heute nicht laufen. Bei Schmerzen oder Krankheit mit einem Elternteil sprechen und bei Bedarf medizinisch abklären lassen.';
  else if(f==='tired'||s==='Schlecht')msg='Heute lieber pausieren. Erholung ist Teil des Trainings – eine ausgelassene Einheit muss nicht nachgeholt werden.';
- else if(recent.length>=4)msg='In den letzten 7 Tagen sind bereits mehrere Einheiten gespeichert. Plane heute keinen zusätzlichen Lauf automatisch ein. Erholung und Rücksprache mit deinem Trainer gehen vor.';
- else if(f==='okay'||s==='Okay')msg='Du bist nicht ganz frisch. Wenn du heute aktiv bist, halte es leicht und beende es, wenn du dich schlechter fühlst. Ein Ruhetag ist völlig okay.';
- else if(football>=2)msg='Du hast bereits Fußballbelastung in deiner Woche. Ein zusätzlicher Lauf ist nicht nötig, nur weil er im Plan steht. Achte auf Erholung und sprich Zusatztraining mit deinem Trainer ab.';
- else msg='Deine Angaben klingen erstmal okay. Halte dich an den vorsichtigen Rahmen und sprich zusätzliche Laufeinheiten mit deinem Trainer und deinen Eltern ab.';
+ else if(recent.length>=4)msg='Nächste Empfehlung: heute keine zusätzliche Laufeinheit. Deine Woche enthält bereits mehrere Einheiten. Erhole dich und stimme weitere Läufe mit deinem Trainer ab.';
+ else if(f==='okay'||s==='Okay')msg='Nächste Empfehlung: heute eher Pause. Warte, bis du dich wieder frisch fühlst. Wenn du später läufst, dann nur locker im Gesprächstempo – keine Tempovorgabe.';
+ else if(football>=2)msg='Nächste Empfehlung: Fußball ist bereits eine hohe Belastung. Laufe nicht zusätzlich schnell oder lang. Ein lockerer Lauf kommt nur an einem gut erholten Tag und nach Absprache infrage.';
+ else msg='Nächste Empfehlung: Wenn du ausgeruht bist und Trainer/Eltern zugestimmt haben, höchstens eine kurze, lockere Einheit im Gesprächstempo. Keine Intervalle oder schnellen Läufe.';
  $('coachResult').textContent=msg;
 }
 function calcPace(){
@@ -208,6 +254,28 @@ function renderSessions(){
  $('sessions').innerHTML=data.length?data.slice(0,8).map(x=>'<div class="session"><strong>'+escapeHtml(x.type)+' · '+escapeHtml(x.date)+'</strong><span class="muted">'+(x.km?escapeHtml(x.km)+' km · ':'')+escapeHtml(x.duration)+' min · '+escapeHtml(x.effort)+'</span></div>').join(''):'<p class="muted">Noch keine Einheiten gespeichert.</p>';
 }
 function isRun(x){return /lauf|run/i.test(String(x.type||''));}
+function renderWeeklyReport(){
+ const now=new Date();now.setHours(23,59,59,999);
+ const currentStart=new Date(now);currentStart.setDate(currentStart.getDate()-6);currentStart.setHours(0,0,0,0);
+ const previousStart=new Date(currentStart);previousStart.setDate(previousStart.getDate()-7);
+ const previousEnd=new Date(currentStart);previousEnd.setMilliseconds(-1);
+ const data=getData().filter(x=>x.date).map(x=>({...x,_date:new Date(x.date+'T12:00:00')})).filter(x=>!isNaN(x._date));
+ const current=data.filter(x=>x._date>=currentStart&&x._date<=now);
+ const previous=data.filter(x=>x._date>=previousStart&&x._date<=previousEnd);
+ const runs=current.filter(x=>isRun(x)),football=current.filter(x=>/fußball|spiel/i.test(String(x.type||'')));
+ const km=runs.reduce((n,x)=>n+Number(x.km||0),0),minutes=current.reduce((n,x)=>n+Number(x.duration||0),0);
+ const prevKm=previous.filter(isRun).reduce((n,x)=>n+Number(x.km||0),0);
+ const change=km-prevKm;
+ $('weeklyReport').innerHTML=[
+  ['Einheiten',current.length],['Fußball / Spiele',football.length],['Läufe',runs.length],['Laufstrecke',km.toFixed(1)+' km']
+ ].map(([label,value])=>'<div class="report-item"><span class="muted" style="font-size:12px">'+label+'</span><b>'+value+'</b></div>').join('');
+ let advice='Diese Woche: '+minutes+' Minuten dokumentierte Gesamtaktivität. Bleib bei lockerer Belastung und plane Erholungstage ein.';
+ if(!current.length)advice='Noch keine Einheiten in den letzten 7 Tagen eingetragen. Trage deine Aktivitäten ein – erst dann kann RUNLAB einen sinnvollen Wochenüberblick erstellen.';
+ else if(football.length>=2)advice+=' Fußball bringt bereits intensive Belastung mit. Kein zusätzlicher schneller Lauf nötig.';
+ if(runs.length&&change>0.1&&prevKm>0)advice+=' Deine Laufkilometer liegen über der Vorwoche ('+prevKm.toFixed(1)+' km). RUNLAB empfiehlt keine weitere Steigerung.';
+ else if(runs.length&&prevKm===0)advice+=' Es gibt noch keine Vergleichswoche. Daher keine Steigerung aus den Daten ableiten.';
+ $('weeklyAdvice').textContent=advice;
+}
 function renderStats(){
  const runs=getData().filter(x=>isRun(x)&&Number(x.km)>0);
  const km=runs.reduce((n,x)=>n+Number(x.km),0),mins=runs.reduce((n,x)=>n+Number(x.duration||0),0);
@@ -260,7 +328,7 @@ function importFitbit(){
    }
    if(!added){$('importResult').textContent='Keine neuen Lauf-Einträge gefunden. Prüfe, ob du die Fitbit-Aktivitätsdatei (JSON) ausgewählt hast.';return;}
    localStorage.setItem('runlab_sessions',JSON.stringify(existing.slice(0,100)));
-   renderSessions();renderCalendar();renderStats();$('importResult').textContent=added+' Lauf/Läufe importiert. '+skipped+' andere oder bereits vorhandene Einträge übersprungen.';
+   renderSessions();renderCalendar();renderStats();renderWeeklyReport();$('importResult').textContent=added+' Lauf/Läufe importiert. '+skipped+' andere oder bereits vorhandene Einträge übersprungen.';
   }catch(e){$('importResult').textContent='Import nicht möglich: '+e.message+' Bitte eine Fitbit-Aktivitätsdatei im JSON-Format auswählen.';}
  };
  reader.readAsText(file);
