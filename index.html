@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101827">
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>Half Marathon Command Center</title>
+<style>
+:root{--bg:#0b1220;--panel:#131e30;--panel2:#1a2940;--text:#eef4ff;--muted:#9aabc4;--line:#2b3b54;--lime:#b8f36b;--blue:#75b8ff;--orange:#ffbf69;--red:#ff8585}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 85% 0%,#1b3551 0,transparent 34%),var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+.wrap{max-width:1100px;margin:auto;padding:22px 16px 50px}.top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:20px}.brand{font-weight:800;letter-spacing:.12em;font-size:12px;color:var(--lime)}.pill{border:1px solid var(--line);border-radius:999px;padding:6px 11px;color:var(--muted);font-size:12px}
+.hero{padding:26px;border:1px solid #34445d;border-radius:24px;background:linear-gradient(125deg,#17283e,#101b2c 65%,#203d39);position:relative;overflow:hidden}
+.hero:after{content:"21.1";position:absolute;right:20px;bottom:-40px;font-size:130px;font-weight:900;color:#ffffff08;pointer-events:none}
+.eyebrow{color:var(--lime);font-size:12px;font-weight:800;letter-spacing:.15em}.hero h1{font-size:clamp(28px,6vw,48px);line-height:1.05;margin:9px 0}.hero p{color:#c2d0e2;max-width:620px;margin:0}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}.stat,.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:17px}.stat small,.muted{color:var(--muted)}.stat strong{display:block;font-size:25px;margin-top:5px;letter-spacing:-.03em}.stat .sub{font-size:12px;color:var(--muted)}
+.layout{display:grid;grid-template-columns:1.15fr .85fr;gap:14px;margin-top:14px}.card h2{font-size:17px;margin:0 0 12px}.card h3{font-size:14px;margin:0 0 5px}.tag{display:inline-block;font-size:11px;border-radius:999px;padding:3px 8px;background:#263a50;color:var(--blue);font-weight:700}.tag.green{background:#263c2a;color:var(--lime)}.tag.warn{background:#493922;color:var(--orange)}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:7px}.day{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:9px 6px;min-height:88px}.day b{display:block;font-size:11px;color:var(--muted);margin-bottom:7px}.day span{font-size:12px;display:block}.day.run{border-color:#648c45;background:#1e3027}.day.football{border-color:#456b94}.day.rest{opacity:.75}
+button{border:0;border-radius:11px;background:var(--lime);color:#142012;font-weight:800;padding:11px 15px;cursor:pointer}button.secondary{background:#263a50;color:var(--text);border:1px solid var(--line)}button.danger{background:#492b31;color:#ffd5d5}
+input,select,textarea{width:100%;background:#0e1827;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:10px;font:inherit;margin:5px 0 10px}label{font-size:12px;color:var(--muted);font-weight:700}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.actions{display:flex;gap:8px;flex-wrap:wrap}.session{padding:12px 0;border-bottom:1px solid var(--line)}.session:last-child{border:0}.session strong{display:block}.bar{height:9px;background:#26364c;border-radius:20px;overflow:hidden;margin:9px 0}.bar i{display:block;height:100%;background:var(--lime);width:0}
+.notice{border-left:3px solid var(--orange);padding:11px 13px;background:#2c261d;border-radius:8px;color:#f4dfbd;font-size:13px}.coach{border-left:3px solid var(--lime);padding:11px 13px;background:#1b2d26;border-radius:8px;color:#d9f5c9}.footer{color:var(--muted);font-size:12px;margin-top:18px}.hidden{display:none}
+@media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}.layout{grid-template-columns:1fr}.week{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:430px){.wrap{padding:14px 11px 35px}.hero{padding:20px}.week{grid-template-columns:repeat(2,1fr)}.row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><div><div class="brand">RUNLAB / PERSONAL PERFORMANCE</div><div class="muted" style="font-size:12px">HALF MARATHON COMMAND CENTER</div></div><span class="pill">JULI 2027 · BETA</span></div>
+  <section class="hero">
+    <div class="eyebrow">DEIN LANGFRISTIGES PROJEKT</div>
+    <h1>Run your own<br>race.</h1>
+    <p>Ein persönliches Lauf-Dashboard für deinen Weg Richtung Halbmarathon. Erst gesund und konstant trainieren, dann schauen, welches Wettkampfziel realistisch ist.</p>
+  </section>
+  <div class="grid">
+    <div class="stat"><small>Wettkampf</small><strong>Juli '27</strong><div class="sub">Datum noch offen</div></div>
+    <div class="stat"><small>Wunschziel</small><strong>1:45:00</strong><div class="sub">ambitionierte Vision</div></div>
+    <div class="stat"><small>Zielpace</small><strong>4:59</strong><div class="sub">min/km – kein Trainingspace</div></div>
+    <div class="stat"><small>Zusatzläufe</small><strong>2 / Woche</strong><div class="sub">nur bei guter Erholung & Freigabe</div></div>
+  </div>
+
+  <div class="layout">
+    <div class="card">
+      <h2>📅 Deine Wochenübersicht</h2>
+      <p class="muted" style="font-size:13px;margin-top:-5px">Trage deine Fußballtage ein. Plane Läufe nicht direkt vor/nach besonders intensiven Einheiten oder Spielen.</p>
+      <div class="row">
+        <div><label>Fußballtage (Mehrfachauswahl)</label>
+          <select id="football" multiple size="4">
+            <option value="0">Montag</option><option value="1">Dienstag</option><option value="2">Mittwoch</option><option value="3">Donnerstag</option><option value="4">Freitag</option><option value="5">Samstag</option><option value="6">Sonntag</option>
+          </select>
+        </div>
+        <div><label>Erster möglicher Lauftag</label><select id="runA"></select><label>Zweiter möglicher Lauftag</label><select id="runB"></select></div>
+      </div>
+      <div class="week" id="week"></div>
+      <div class="coach" id="weeklyCoach" style="margin-top:12px">Coach-Tipp: Starte nur mit lockeren Läufen, bei denen du dich noch entspannt unterhalten kannst.</div>
+    </div>
+    <div class="card">
+      <h2>🧠 Coach Check-in</h2>
+      <p class="muted" style="font-size:13px">Kurzer Check vor jeder Laufeinheit.</p>
+      <label>Wie fühlst du dich heute?</label>
+      <select id="feel"><option value="good">Frisch und erholt</option><option value="okay">Etwas müde</option><option value="tired">Sehr müde / schwere Beine</option><option value="pain">Schmerzen oder krank</option></select>
+      <label>Wie war dein Schlaf?</label>
+      <select id="sleep"><option>Gut</option><option>Okay</option><option>Schlecht</option></select>
+      <button onclick="checkCoach()">Check auswerten</button>
+      <div id="coachResult" class="coach" style="margin-top:12px">Dein Check-in erscheint hier.</div>
+      <p class="footer">Das ist eine einfache Orientierung, keine medizinische Diagnose und keine echte KI-Auswertung.</p>
+    </div>
+  </div>
+
+  <div class="layout">
+    <div class="card">
+      <h2>🏃 Trainingsrahmen – erste 4 Wochen</h2>
+      <div class="notice">Wegen deines Alters und der drei Fußballtermine ist das bewusst ein vorsichtiger Einstieg – kein Halbmarathon- oder Tempotraining. Kläre die zusätzliche Laufbelastung mit Eltern und Trainer/Ärztin bzw. Arzt.</div>
+      <div class="session"><span class="tag green">Woche 1–2</span><h3 style="margin-top:7px">Gewöhnen statt pushen</h3><p class="muted">Wenn du erholt bist und grünes Licht hast: zunächst ein lockerer Lauf von etwa 20–30 Minuten. Kein Tempodruck. Fußball zählt bereits als intensive Belastung.</p></div>
+      <div class="session"><span class="tag green">Woche 3</span><h3 style="margin-top:7px">Konstanz prüfen</h3><p class="muted">Nur wenn du dich gut erholst: einen zweiten sehr lockeren Lauf von etwa 15–25 Minuten ergänzen. Zwischen Laufeinheiten ausreichend Erholung lassen.</p></div>
+      <div class="session"><span class="tag warn">Woche 4</span><h3 style="margin-top:7px">Entlasten & auswerten</h3><p class="muted">Weniger machen, nicht mehr. Prüfe gemeinsam mit deinem Trainer, ob zwei Läufe zusätzlich zum Fußball wirklich gut vertragen werden.</p></div>
+      <p class="footer">Danach nicht automatisch steigern. Erst Belastungsverträglichkeit, Fußball-Spielplan, Wachstum/Erholung und fachliche Rückmeldung berücksichtigen.</p>
+    </div>
+    <div class="card">
+      <h2>⏱️ Pace-Rechner</h2>
+      <p class="muted" style="font-size:13px">Rechne Zeiten für bekannte Distanzen aus – ohne daraus einen Trainingsdruck abzuleiten.</p>
+      <div class="row"><div><label>Distanz (km)</label><input id="km" type="number" min="0.1" step="0.1" value="5"></div><div><label>Zeit (Minuten)</label><input id="mins" type="number" min="1" step="0.1" placeholder="z. B. 30"></div></div>
+      <button onclick="calcPace()">Pace berechnen</button>
+      <div id="paceResult" class="coach" style="margin-top:12px">Gib eine Distanz und Zeit ein.</div>
+      <hr style="border:0;border-top:1px solid var(--line);margin:18px 0">
+      <h3>Deine Zielzeit im Überblick</h3>
+      <p class="muted">1:45 h auf 21,1 km entspricht etwa <b style="color:var(--text)">4:59 min/km</b>. Das ist eine spätere Wettkampf-Pace, nicht die Pace für deine lockeren Läufe.</p>
+    </div>
+  </div>
+
+  <div class="layout">
+    <div class="card">
+      <h2>📝 Training eintragen</h2>
+      <div class="row"><div><label>Datum</label><input id="date" type="date"></div><div><label>Einheit</label><select id="type"><option>Lockerer Lauf</option><option>Fußballtraining</option><option>Spiel</option><option>Anderes</option></select></div></div>
+      <div class="row"><div><label>Distanz (km, optional)</label><input id="distance" type="number" min="0" step="0.1" placeholder="z. B. 4.2"></div><div><label>Dauer (Minuten)</label><input id="duration" type="number" min="1" step="1" placeholder="z. B. 28"></div></div>
+      <label>Wie hat es sich angefühlt?</label><select id="effort"><option>Locker</option><option>Normal</option><option>Anstrengend</option></select>
+      <button onclick="addSession()">Einheit speichern</button>
+      <p class="footer">Die Einträge bleiben lokal in diesem Browser auf deinem Gerät gespeichert.</p>
+    </div>
+    <div class="card">
+      <h2>📊 Deine letzten Einheiten</h2>
+      <div id="sessions"><p class="muted">Noch keine Einheiten gespeichert.</p></div>
+      <div class="actions"><button class="secondary" onclick="exportData()">Daten exportieren</button><button class="danger" onclick="clearData()">Zurücksetzen</button></div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:14px">
+    <h2>⌚ Pixel Watch 3 – so nutzt du sie</h2>
+    <ul class="muted" style="padding-left:19px">
+      <li>Nutze eine Laufaufzeichnung in Fitbit oder Google Fit/Health Connect, sofern eingerichtet.</li>
+      <li>Beobachte vor allem Dauer, Strecke und wie anstrengend sich der Lauf angefühlt hat.</li>
+      <li>Verlass dich nicht allein auf Pace- oder Herzfrequenzwerte der Uhr.</li>
+      <li>Diese HTML-App synchronisiert derzeit nicht automatisch mit der Pixel Watch. Du kannst deine Einheiten manuell eintragen.</li>
+    </ul>
+  </div>
+  <div class="notice" style="margin-top:14px"><b>Gesundheit zuerst:</b> Bei Schmerzen, Krankheit, ungewöhnlicher Erschöpfung oder wenn du dich nicht erholt fühlst, Lauf auslassen und mit einem Erwachsenen sprechen. Keine Einheiten nachholen oder durch Extra-Training kompensieren. Ein Halbmarathon ist für Jugendliche eine besondere Belastung; Teilnahmealter und medizinische Eignung müssen vorab geklärt werden.</div>
+  <div class="footer">RUNLAB · Offline-Dashboard · Deine Daten bleiben auf diesem Gerät. Kein medizinisches Gerät, keine automatische KI und keine automatische Uhr-Synchronisierung.</div>
+</div>
+<script>
+const days=['Mo','Di','Mi','Do','Fr','Sa','So'];
+const $=id=>document.getElementById(id);
+function init(){
+  ['runA','runB'].forEach(id=>$(id).innerHTML=days.map((d,i)=>`<option value="${i}">${['Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag','Sonntag'][i]}</option>`).join(''));
+  $('runA').value='1';$('runB').value='5';
+  $('date').value=new Date().toISOString().slice(0,10);
+  $('football').addEventListener('change',renderWeek);
+  $('runA').addEventListener('change',renderWeek);$('runB').addEventListener('change',renderWeek);
+  renderWeek();renderSessions();
+}
+function renderWeek(){
+ const football=[...$('football').selectedOptions].map(o=>+o.value),a=+$('runA').value,b=+$('runB').value;
+ $('week').innerHTML=days.map((d,i)=>{
+  let cls='rest',label='Erholung';
+  if(football.includes(i)){cls='football';label='Fußball';}
+  if(i===a||i===b){if(football.includes(i)){label='Fußball – kein Lauf';}else{cls='run';label='Optional: locker';}}
+  return `<div class="day ${cls}"><b>${d}</b><span>${label}</span></div>`;
+ }).join('');
+ $('weeklyCoach').textContent=(a===b?'Wähle zwei unterschiedliche Lauftage. ':'')+'Lege Läufe möglichst nicht auf Fußballtage. Wenn sich die Woche voll anfühlt, ist ein Lauf weniger die bessere Entscheidung.';
+}
+function checkCoach(){
+ const f=$('feel').value,s=$('sleep').value;let msg='';
+ if(f==='pain')msg='Heute nicht laufen. Bei Schmerzen oder Krankheit mit einem Elternteil sprechen und bei Bedarf medizinisch abklären lassen.';
+ else if(f==='tired'||s==='Schlecht')msg='Heute lieber pausieren oder nur den normalen Alltag machen. Keine Laufeinheit nachholen.';
+ else if(f==='okay'||s==='Okay')msg='Wenn du überhaupt läufst, dann nur sehr locker und kürzer. Bei zunehmender Müdigkeit abbrechen.';
+ else msg='Du fühlst dich erholt. Halte dich trotzdem an den lockeren Plan und sprich die zusätzliche Belastung mit deinem Trainer ab.';
+ $('coachResult').textContent=msg;
+}
+function calcPace(){
+ const km=Number($('km').value),m=Number($('mins').value);
+ if(!(km>0&&m>0)){$('paceResult').textContent='Bitte eine gültige Distanz und Zeit eingeben.';return;}
+ const sec=Math.round(m*60/km),mm=Math.floor(sec/60),ss=String(sec%60).padStart(2,'0');
+ $('paceResult').textContent=`Deine Durchschnittspace: ${mm}:${ss} min/km. Das ist eine Rückschau auf diese Einheit, keine Vorgabe für künftige Läufe.`;
+}
+function getData(){try{return JSON.parse(localStorage.getItem('runlab_sessions')||'[]')}catch(e){return []}}
+function addSession(){
+ const item={date:$('date').value,type:$('type').value,km:$('distance').value,duration:$('duration').value,effort:$('effort').value};
+ if(!item.date||!item.duration){alert('Bitte Datum und Dauer eintragen.');return;}
+ const data=getData();data.unshift(item);localStorage.setItem('runlab_sessions',JSON.stringify(data.slice(0,100)));
+ $('distance').value='';$('duration').value='';renderSessions();
+}
+function renderSessions(){
+ const data=getData();
+ $('sessions').innerHTML=data.length?data.slice(0,8).map(x=>`<div class="session"><strong>${escapeHtml(x.type)} · ${escapeHtml(x.date)}</strong><span class="muted">${x.km?escapeHtml(x.km)+' km · ':''}${escapeHtml(x.duration)} min · ${escapeHtml(x.effort)}</span></div>`).join(''):'<p class="muted">Noch keine Einheiten gespeichert.</p>';
+}
+function escapeHtml(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function exportData(){
+ const blob=new Blob([JSON.stringify(getData(),null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='runlab-training.json';a.click();URL.revokeObjectURL(url);
+}
+function clearData(){if(confirm('Alle gespeicherten Einheiten löschen?')){localStorage.removeItem('runlab_sessions');renderSessions();}}
+init();
+</script>
+<script>if("serviceWorker" in navigator && location.protocol.startsWith("http")){navigator.serviceWorker.register("./sw.js").catch(()=>{});}</script>
+</body></html>
