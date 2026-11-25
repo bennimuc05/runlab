@@ -214,6 +214,59 @@ button:focus-visible,.tabs .tab:focus-visible,input:focus-visible,select:focus-v
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}}
 
+
+/* RUNLAB V9 · Emerald accent + automatic system appearance */
+:root{--accent:#16865B;--lime:#16865B}
+.brand,.hero .eyebrow{color:var(--accent)}
+.tabs .tab.active{background:var(--accent);color:#fff}
+button:not(.secondary):not(.danger){background:var(--accent);border-color:var(--accent);color:#fff}
+.tag.green{background:color-mix(in srgb,var(--accent) 11%,white);color:var(--accent);border-color:color-mix(in srgb,var(--accent) 22%,white)}
+.day.run,.calendar button.cal-day.has-run{background:color-mix(in srgb,var(--accent) 10%,white)!important;border-color:color-mix(in srgb,var(--accent) 30%,white)!important;color:var(--accent)!important}
+.bar i,.stat-track i{background:linear-gradient(90deg,var(--accent),color-mix(in srgb,var(--accent) 55%,white))}
+.countdown-dot{background:var(--accent);box-shadow:0 0 10px color-mix(in srgb,var(--accent) 35%,transparent)}
+.settings-kicker{font-size:11px;font-weight:800;letter-spacing:.14em;color:var(--accent);margin-bottom:7px}
+.setting-row{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:15px 0;border-top:1px solid var(--line)}
+.setting-row b,.setting-row small{display:block}
+.setting-row small{font-size:12px;color:var(--muted);margin-top:3px;max-width:420px}
+.setting-row select{min-width:155px;max-width:48%}
+.setting-preview{display:flex;align-items:center;gap:12px;padding:14px;margin-top:10px;border-radius:16px;background:color-mix(in srgb,var(--accent) 9%,var(--panel))}
+.preview-dot{width:13px;height:13px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 6px color-mix(in srgb,var(--accent) 14%,transparent)}
+.setting-preview b,.setting-preview small{display:block}
+.setting-preview small{font-size:12px;color:var(--muted)}
+.settings-value{font-size:12px;color:var(--muted);font-weight:700}
+@media(max-width:700px){.tabs{grid-template-columns:repeat(7,minmax(0,1fr))}.tabs .tab{font-size:9px;padding:9px 1px}.setting-row{align-items:flex-start;flex-direction:column}.setting-row select{max-width:100%;width:100%}}
+body.dark-mode{background:radial-gradient(ellipse at 12% 0%,#1d302b 0,transparent 36%),#111820;color:#edf3f1}
+body.dark-mode .top .muted,body.dark-mode .muted,body.dark-mode .stat small,body.dark-mode .stat .sub,body.dark-mode .footer,body.dark-mode label{color:#a4b0b7}
+body.dark-mode .pill,body.dark-mode .tabs{background:rgba(27,37,43,.82);border-color:#33433f;color:#c4d0cc}
+body.dark-mode .tabs .tab{color:#b9c6c1}
+body.dark-mode .tabs .tab:hover{background:#293a35;color:#fff}
+body.dark-mode .tabs .tab.active{background:var(--accent);color:#fff}
+body.dark-mode .hero{background:linear-gradient(135deg,#202d2b 0%,#182321 65%,#1b3429 100%);border-color:#354740;color:#edf3f1}
+body.dark-mode .hero h1,body.dark-mode .stat strong,body.dark-mode .card h2,body.dark-mode .card h3,body.dark-mode .countdown-grid strong{color:#edf3f1}
+body.dark-mode .hero p{color:#bac8c2}
+body.dark-mode .stat,body.dark-mode .card{background:rgba(29,40,45,.88);border-color:#34443f;color:#edf3f1;box-shadow:0 8px 28px rgba(0,0,0,.18)}
+body.dark-mode .report-item,body.dark-mode .day{background:#263431;border-color:#3a4d45;color:#e4ede8}
+body.dark-mode .day b{color:#b5c3bc}
+body.dark-mode .day.run,body.dark-mode .calendar button.cal-day.has-run{background:#234436!important;border-color:#35684d!important;color:#b8e7c9!important}
+body.dark-mode .day.football{background:#263746;border-color:#40566a}
+body.dark-mode button.secondary{background:#29363b;color:#e1e9e5;border-color:#40504b}
+body.dark-mode button.danger{background:#482d30;color:#ffc4c4}
+body.dark-mode input,body.dark-mode select,body.dark-mode textarea{background:#202d31;color:#edf3f1;border-color:#40514b}
+body.dark-mode input::placeholder,body.dark-mode textarea::placeholder{color:#899994}
+body.dark-mode .coach{background:#233a30;color:#d1e7d8;border-color:#365644}
+body.dark-mode .notice{background:#403728;color:#f0dfbd;border-color:#665337}
+body.dark-mode .tag{background:#263a45;color:#b8d7ed;border-color:#3b5867}
+body.dark-mode .tag.green{background:#234436;color:#b8e7c9;border-color:#35684d}
+body.dark-mode .bar,body.dark-mode .stat-track{background:#34413e}
+body.dark-mode .calendar button.cal-day:not(.empty){background:#263431!important;color:#e4ede8!important;border-color:#40514b!important}
+body.dark-mode .calendar button.cal-day.has-run{background:#234436!important;color:#b8e7c9!important;border-color:#35684d!important}
+body.dark-mode .calendar button.cal-day.empty{background:transparent!important}
+body.dark-mode .race-countdown{background:rgba(31,45,41,.82);border-color:#3b5046}
+body.dark-mode .countdown-heading,body.dark-mode .countdown-grid span,body.dark-mode .countdown-date{color:#aabbb0}
+body.dark-mode .settings-value{color:#aabbb0}
+body.dark-mode .setting-preview{background:#243b31}
+@media(max-width:700px){body.dark-mode .tabs{background:rgba(27,37,43,.92)}}
+
 </style>
 </head>
 <body>
@@ -226,6 +279,7 @@ button:focus-visible,.tabs .tab:focus-visible,input:focus-visible,select:focus-v
     <button class="tab" data-tab="training">Training</button>
     <button class="tab" data-tab="calendar">Kalender</button>
     <button class="tab" data-tab="stats">Statistik</button>
+    <button class="tab" data-tab="settings">⚙️ Einstellungen</button>
   </nav>
   <section class="hero">
     <div class="eyebrow">RUNLAB · DEIN TRAINING AUF EINEN BLICK</div>
@@ -371,12 +425,15 @@ function setupTabs(){
  const safety=nodes.find(n=>n.classList.contains('notice')&&n.textContent.includes('Gesundheit zuerst'));
  const footer=nodes.find(n=>n.classList.contains('footer')&&n.textContent.includes('RUNLAB'));
  const panels={};
- Object.keys({dashboard:1,plan:1,coach:1,training:1,calendar:1,stats:1}).forEach(key=>{
+ Object.keys({dashboard:1,plan:1,coach:1,training:1,calendar:1,stats:1,settings:1}).forEach(key=>{
   const panel=document.createElement('section');panel.className='tab-panel'+(key==='dashboard'?' active':'');panel.id='panel-'+key;panels[key]=panel;wrap.appendChild(panel);
  });
  const report=document.createElement('div');report.className='card';report.style.marginTop='14px';report.innerHTML='<h2>🧾 Wochenbericht</h2><p class="muted" style="font-size:13px">Deine letzten 7 Tage im Vergleich zu den 7 Tagen davor.</p><div id="weeklyReport" class="report-grid"></div><div id="weeklyAdvice" class="coach" style="margin-top:12px"></div>';
  const personal=document.createElement('div');personal.className='layout';personal.innerHTML='<div class="card"><h2>🎯 Dein aktueller Trainingsstatus</h2><div id="personalStatus" class="coach">Deine Daten werden ausgewertet …</div><h3 style="margin-top:16px">Lauf-Fortschritt · letzte 4 Wochen</h3><div id="progressChart" class="stat-bars"></div><p class="footer">Nur tatsächlich gespeicherte Laufeinheiten werden angezeigt. Fehlende Daten werden nicht geschätzt.</p></div><div class="card"><h2>🗓️ Die nächsten 7 Tage</h2><div id="nextSevenDays" class="stat-bars"></div><p class="footer">Orientierung anhand deiner ausgewählten Fußball- und möglichen Lauftage – keine automatische Kalender-Synchronisierung.</p></div>';
  panels.dashboard.append(hero,grids[0],report,personal);
+ panels.settings.innerHTML='<div class="card settings-card"><div class="settings-kicker">RUNLAB PERSONALISIEREN</div><h2>Darstellung</h2><p class="muted">Passe das Erscheinungsbild an. Deine Auswahl wird auf diesem Gerät gespeichert.</p><div class="setting-row"><div><b>Darstellungsmodus</b><small>Automatisch folgt der Einstellung deines Geräts.</small></div><select id="themeSetting" aria-label="Darstellungsmodus"><option value="system">Automatisch (Gerät)</option><option value="light">Immer hell</option><option value="dark">Immer dunkel</option></select></div><div class="setting-row"><div><b>Akzentfarbe</b><small>Die RUNLAB-Hauptfarbe für aktive Elemente und Highlights.</small></div><select id="accentSetting" aria-label="Akzentfarbe"><option value="green">Emerald Green</option><option value="blue">Blau</option><option value="orange">Orange</option><option value="purple">Violett</option></select></div><div class="setting-preview"><span class="preview-dot"></span><span><b>RUNLAB</b><small id="appearanceSummary">Systemdesign · Emerald Green</small></span></div></div><div class="card settings-card"><h2>Über RUNLAB</h2><div class="setting-row"><div><b>Version</b><small>RUNLAB V9</small></div><span class="settings-value">V9</span></div><div class="setting-row"><div><b>Datenspeicherung</b><small>Trainingsdaten und Einstellungen bleiben lokal in diesem Browser.</small></div><span class="settings-value">Lokal</span></div><p class="footer">Das Ändern der Darstellung verändert oder löscht keine gespeicherten Trainingseinheiten.</p></div>';
+ $('themeSetting').addEventListener('change',applyPreferences);
+ $('accentSetting').addEventListener('change',applyPreferences);
  if(layouts[0]){panels.plan.append(layouts[0].children[0]);panels.coach.append(layouts[0].children[0]);}
  if(layouts[1]){panels.plan.append(layouts[1].children[0]);panels.dashboard.append(layouts[1].children[0]);}
  if(fitbit)panels.training.append(fitbit);
@@ -390,8 +447,35 @@ function setupTabs(){
   Object.entries(panels).forEach(([key,panel])=>panel.classList.toggle('active',key===btn.dataset.tab));
  }));
 }
+function readPreferences(){
+ try{return Object.assign({theme:'system',accent:'green'},JSON.parse(localStorage.getItem('runlab_preferences')||'{}'));}
+ catch(e){return {theme:'system',accent:'green'};}
+}
+function applyPreferences(){
+ const theme=$('themeSetting')?.value||'system',accent=$('accentSetting')?.value||'green';
+ try{localStorage.setItem('runlab_preferences',JSON.stringify({theme,accent}));}catch(e){}
+ const dark=theme==='dark'||(theme==='system'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);
+ document.body.classList.toggle('dark-mode',!!dark);
+ document.documentElement.dataset.accent=accent;
+ const colors={green:'#16865B',blue:'#3979C9',orange:'#C47722',purple:'#8057B7'};
+ document.documentElement.style.setProperty('--accent',colors[accent]||colors.green);
+ const meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.content=dark?'#111820':'#16865B';
+ const summary=$('appearanceSummary');if(summary)summary.textContent=(theme==='system'?'Systemdesign':theme==='dark'?'Dunkles Design':'Helles Design')+' · '+({green:'Emerald Green',blue:'Blau',orange:'Orange',purple:'Violett'}[accent]||'Emerald Green');
+}
+function initPreferences(){
+ const p=readPreferences();
+ $('themeSetting').value=p.theme;
+ $('accentSetting').value=p.accent;
+ applyPreferences();
+ if(window.matchMedia){
+  const mq=window.matchMedia('(prefers-color-scheme: dark)');
+  const update=()=>{if(($('themeSetting')?.value||'system')==='system')applyPreferences();};
+  if(mq.addEventListener)mq.addEventListener('change',update);else if(mq.addListener)mq.addListener(update);
+ }
+}
 function init(){
   setupTabs();
+  initPreferences();
   updateRaceCountdown();setInterval(updateRaceCountdown,1000);
   setupSwipeNavigation();
   ['runA','runB'].forEach(id=>$(id).innerHTML=days.map((d,i)=>`<option value="${i}">${['Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag','Sonntag'][i]}</option>`).join(''));
