@@ -87,6 +87,16 @@ input,select,textarea{width:100%;background:#0e1827;color:var(--text);border:1px
     </div>
   </div>
 
+  <div class="card" style="margin-top:14px">
+    <h2>📥 Fitbit-Trainingsimport</h2>
+    <p class="muted" style="font-size:13px">Importiere eine Fitbit-Aktivitätsdatei (JSON). RUNLAB übernimmt erkannte Läufe in deine Trainingseinträge. Die Datei wird nur lokal in diesem Browser verarbeitet.</p>
+    <label for="fitbitFile">Fitbit-Datei auswählen (.json)</label>
+    <input id="fitbitFile" type="file" accept=".json,application/json">
+    <div class="actions"><button onclick="importFitbit()">Datei importieren</button></div>
+    <div id="importResult" class="coach" style="margin-top:12px">Noch keine Datei ausgewählt.</div>
+    <p class="footer">Hinweis: Das ist ein Dateiimport, keine Live-Synchronisierung. Unterstützt werden Fitbit-Aktivitätslisten mit Feldern wie activityName, startTime, duration und distance.</p>
+  </div>
+
   <div class="layout">
     <div class="card">
       <h2>📝 Training eintragen</h2>
@@ -159,6 +169,43 @@ function addSession(){
 function renderSessions(){
  const data=getData();
  $('sessions').innerHTML=data.length?data.slice(0,8).map(x=>`<div class="session"><strong>${escapeHtml(x.type)} · ${escapeHtml(x.date)}</strong><span class="muted">${x.km?escapeHtml(x.km)+' km · ':''}${escapeHtml(x.duration)} min · ${escapeHtml(x.effort)}</span></div>`).join(''):'<p class="muted">Noch keine Einheiten gespeichert.</p>';
+}
+function importFitbit(){
+ const file=$('fitbitFile').files[0];
+ if(!file){$('importResult').textContent='Bitte zuerst eine Fitbit-JSON-Datei auswählen.';return;}
+ const reader=new FileReader();
+ reader.onload=()=>{
+  try{
+   const parsed=JSON.parse(reader.result);
+   const rows=Array.isArray(parsed)?parsed:(Array.isArray(parsed.activities)?parsed.activities:(Array.isArray(parsed.data)?parsed.data:null));
+   if(!rows)throw new Error('Keine unterstützte Aktivitätsliste gefunden.');
+   const existing=getData();let added=0,skipped=0;
+   for(const a of rows){
+    const name=String(a.activityName||a.name||a.activity||a.logType||'').toLowerCase();
+    const typeText=String(a.activityType||a.activityTypeName||a.name||a.activityName||'').toLowerCase();
+    if(!(name.includes('run')||name.includes('lauf')||typeText.includes('run')||typeText.includes('lauf')||Number(a.activityTypeId)===跑TypeId)){}
+    const isRun=name.includes('run')||name.includes('lauf')||typeText.includes('run')||typeText.includes('lauf')||Number(a.activityTypeId)===90009||Number(a.activityTypeId)===90010;
+    if(!isRun){skipped++;continue;}
+    const rawDate=a.startTime||a.originalStartTime||a.date||a.startDate||'';
+    const date=String(rawDate).slice(0,10);
+    let duration=Number(a.duration||a.durationMillis||a.elapsedTime||0);
+    if(duration>10000)duration=Math.round(duration/60000);else if(duration>0)duration=Math.round(duration/60);
+    let km=Number(a.distance||a.distanceKm||a.distance_km||0);
+    const unit=String(a.distanceUnit||a.unit||'').toLowerCase();
+    if(unit.includes('meter')||unit==='m')km=km/1000;
+    else if(unit.includes('mile')||unit==='mi')km=km*1.609344;
+    if(!date||!duration){skipped++;continue;}
+    const item={date,type:'Lauf (Fitbit)',km:km>0?km.toFixed(2):'',duration:String(duration),effort:'Nicht angegeben',source:'Fitbit'};
+    const duplicate=existing.some(x=>x.date===item.date&&x.type===item.type&&x.duration===item.duration&&String(x.km||'')===String(item.km||''));
+    if(duplicate){skipped++;continue;}
+    existing.unshift(item);added++;
+   }
+   if(!added){$('importResult').textContent='Keine neuen Lauf-Einträge gefunden. Prüfe, ob du die Fitbit-Aktivitätsdatei (JSON) ausgewählt hast.';return;}
+   localStorage.setItem('runlab_sessions',JSON.stringify(existing.slice(0,100)));
+   renderSessions();$('importResult').textContent=added+' Lauf/Läufe importiert. '+skipped+' andere oder bereits vorhandene Einträge übersprungen.';
+  }catch(e){$('importResult').textContent='Import nicht möglich: '+e.message+' Bitte eine Fitbit-Aktivitätsdatei im JSON-Format auswählen.';}
+ };
+ reader.readAsText(file);
 }
 function escapeHtml(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function exportData(){
