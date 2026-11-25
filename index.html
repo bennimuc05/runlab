@@ -85,6 +85,59 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);outline:none;bo
 @media(max-width:700px){.wrap{padding:16px 12px 38px}.hero{min-height:205px;padding:25px 21px;border-radius:21px}.hero:after{right:10px;bottom:-42px}.card{padding:17px}.stat{padding:15px}.tabs{gap:6px}.tabs .tab{padding:10px 12px;font-size:12px}.layout{gap:12px;margin-top:12px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
+
+/* RUNLAB V7 · refined minimal interface */
+:root{--bg:#090e16;--panel:#111923;--panel2:#192432;--line:#263342;--lime:#c8f27a;--muted:#9aa8b8;--blue:#8dbdf0}
+body{background:#090e16;color:#f2f5f8;letter-spacing:0}
+.wrap{max-width:1120px;padding:22px 20px 64px}
+.top{margin-bottom:18px}.brand{letter-spacing:.16em}
+.tabs{gap:5px;padding:7px;margin:0 0 18px;border:1px solid #202c39;border-radius:16px;background:#0e151f;backdrop-filter:blur(18px)}
+.tabs .tab{background:transparent;border:1px solid transparent;color:#aebaca;padding:10px 15px;border-radius:11px}
+.tabs .tab:hover{background:#1a2634;transform:none}
+.tabs .tab.active{background:#c8f27a;color:#172014;border-color:#c8f27a;box-shadow:none}
+.hero{min-height:0;padding:34px;border-radius:25px;border:1px solid #314151;background:linear-gradient(135deg,#172432 0%,#111a25 58%,#17251e 100%);box-shadow:none}
+.hero:before{right:5%;top:-175px;opacity:.55}
+.hero:after{font-size:clamp(100px,15vw,170px);right:22px;bottom:-54px}
+.hero h1{font-size:clamp(36px,6vw,60px);letter-spacing:-.06em}
+.hero p{max-width:560px;color:#b7c2ce}
+.grid{gap:10px;margin:12px 0}
+.stat,.card{background:#111923;border:1px solid #253240;border-radius:17px;box-shadow:none}
+.stat{padding:17px}.stat:after{display:none}
+.card{padding:20px}
+.card h2{font-size:16px;font-weight:720;letter-spacing:-.02em}
+.layout{gap:12px;margin-top:12px}
+.report-item{background:#172230;border:1px solid #293746;border-radius:13px}
+input,select,textarea{background:#0c131c;border:1px solid #2a3949;border-radius:11px}
+button{border-radius:11px;box-shadow:none}
+button:hover{transform:translateY(-1px);filter:brightness(1.07)}
+.coach{background:#17251d;border:1px solid #344b36;border-left:3px solid var(--lime);border-radius:12px}
+.notice{border-radius:12px}
+.session{border-color:#263342}
+.day{background:#172230;border:1px solid #293746}
+.calendar button.cal-day:not(.empty){background:#202d3b!important;border-color:#3a4a5c!important;color:#f3f6fa!important;text-shadow:none!important}
+.calendar button.cal-day.has-run{background:#263d2b!important;border-color:#9bcf62!important;color:#e3ffbd!important}
+.calendar button.cal-day.today{outline:2px solid var(--blue)!important}
+.race-countdown{position:relative;z-index:1;margin-top:25px;max-width:590px;padding:16px 18px;border:1px solid #53634c;border-radius:17px;background:rgba(8,15,18,.46);backdrop-filter:blur(10px)}
+.countdown-heading{display:flex;align-items:center;gap:8px;color:#d7e7c4;font-size:10px;font-weight:850;letter-spacing:.18em}
+.countdown-dot{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 12px #c8f27a88}
+.countdown-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:12px 0 8px}
+.countdown-grid>div{display:flex;flex-direction:column;gap:2px}
+.countdown-grid strong{font-size:clamp(25px,4vw,38px);font-weight:760;letter-spacing:-.06em;font-variant-numeric:tabular-nums;line-height:1.05}
+.countdown-grid span{font-size:9px;letter-spacing:.12em;color:#aebca9;font-weight:750}
+.countdown-date{font-size:10px;color:#d0d9ca;letter-spacing:.12em;font-weight:700}
+.tab-panel{animation:panelIn .2s ease both}
+@media(max-width:700px){
+ .wrap{padding:13px 12px 84px}
+ .tabs{position:fixed;z-index:50;left:10px;right:10px;bottom:10px;top:auto;margin:0;padding:6px;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:3px;border-radius:16px;background:rgba(14,21,31,.94);box-shadow:0 8px 30px #0008;backdrop-filter:blur(18px)}
+ .tabs .tab{padding:10px 2px;font-size:10px;white-space:nowrap;border-radius:10px}
+ .hero{padding:24px 20px;border-radius:21px}
+ .hero:after{right:8px;bottom:-38px}
+ .card{padding:16px}.stat{padding:14px}
+ .race-countdown{padding:14px;margin-top:20px}
+ .countdown-grid{gap:4px}
+ .countdown-grid strong{font-size:clamp(23px,7vw,32px)}
+}
+@media(prefers-reduced-motion:reduce){.tab-panel{animation:none}}
 </style>
 </head>
 <body>
@@ -102,6 +155,16 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);outline:none;bo
     <div class="eyebrow">RUNLAB · DEIN TRAINING AUF EINEN BLICK</div>
     <h1>Run your own<br>race.</h1>
     <p>Dein persönliches Lauf-Cockpit. Behalte Training, Erholung und Fortschritt im Blick – Schritt für Schritt und ohne unnötigen Druck.</p>
+    <div class="race-countdown" aria-live="off">
+      <div class="countdown-heading"><span class="countdown-dot"></span> COUNTDOWN ZUM RACE</div>
+      <div class="countdown-grid">
+        <div><strong id="countDays">---</strong><span>TAGE</span></div>
+        <div><strong id="countHours">--</strong><span>STUNDEN</span></div>
+        <div><strong id="countMinutes">--</strong><span>MINUTEN</span></div>
+        <div><strong id="countSeconds">--</strong><span>SEKUNDEN</span></div>
+      </div>
+      <div class="countdown-date">04. JULI 2027 · START 08:00 UHR</div>
+    </div>
   </section>
   <div class="grid">
     <div class="stat"><small>Wettkampf</small><strong>Juli '27</strong><div class="sub">Datum noch offen</div></div>
@@ -253,12 +316,33 @@ function setupTabs(){
 }
 function init(){
   setupTabs();
+  updateRaceCountdown();setInterval(updateRaceCountdown,1000);
+  setupSwipeNavigation();
   ['runA','runB'].forEach(id=>$(id).innerHTML=days.map((d,i)=>`<option value="${i}">${['Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag','Sonntag'][i]}</option>`).join(''));
   $('runA').value='1';$('runB').value='5';[0,2,4].forEach(i=>$('football').options[i].selected=true);
   $('date').value=new Date().toISOString().slice(0,10);
   $('football').addEventListener('change',()=>{renderWeek();renderPersonalDashboard();});
   $('runA').addEventListener('change',()=>{renderWeek();renderPersonalDashboard();});$('runB').addEventListener('change',()=>{renderWeek();renderPersonalDashboard();});
   renderWeek();renderSessions();renderCalendar();renderStats();renderWeeklyReport();renderPersonalDashboard();
+}
+
+function updateRaceCountdown(){
+ const target=new Date(2027,6,4,8,0,0,0).getTime();
+ const diff=target-Date.now();
+ const ids=['countDays','countHours','countMinutes','countSeconds'];
+ if(diff<=0){$(ids[0]).textContent='0';$(ids[1]).textContent='00';$(ids[2]).textContent='00';$(ids[3]).textContent='00';return;}
+ const days=Math.floor(diff/86400000),hours=Math.floor(diff%86400000/3600000),minutes=Math.floor(diff%3600000/60000),seconds=Math.floor(diff%60000/1000);
+ [days,hours,minutes,seconds].forEach((v,i)=>$(ids[i]).textContent=i===0?String(v):String(v).padStart(2,'0'));
+}
+function setupSwipeNavigation(){
+ const keys=['dashboard','plan','coach','training','calendar','stats'];let startX=0,startY=0;
+ document.addEventListener('touchstart',e=>{if(e.touches.length===1){startX=e.touches[0].clientX;startY=e.touches[0].clientY;}},{passive:true});
+ document.addEventListener('touchend',e=>{
+  if(!startX)return;const dx=e.changedTouches[0].clientX-startX,dy=e.changedTouches[0].clientY-startY;startX=0;
+  if(Math.abs(dx)<75||Math.abs(dx)<Math.abs(dy)*1.25)return;
+  const active=document.querySelector('#mainTabs .tab.active'),index=keys.indexOf(active?.dataset.tab);const next=Math.max(0,Math.min(keys.length-1,index+(dx<0?1:-1)));
+  if(next!==index)document.querySelector('#mainTabs .tab[data-tab="'+keys[next]+'"]').click();
+ },{passive:true});
 }
 function renderWeek(){
  const football=[...$('football').selectedOptions].map(o=>+o.value),a=+$('runA').value,b=+$('runB').value;
