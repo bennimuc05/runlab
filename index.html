@@ -35,6 +35,56 @@ input,select,textarea{width:100%;background:#0e1827;color:var(--text);border:1px
 .calendar-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.calendar-head button{padding:8px 11px}.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.cal-label,.cal-day{min-width:0;text-align:center;padding:8px 2px;border-radius:9px;font-size:12px}.cal-label{color:var(--muted);font-weight:700}.cal-day{background:var(--panel2);border:1px solid transparent;min-height:42px}.cal-day.today{border-color:var(--blue)}.cal-day.has-run{background:#263c2a;border-color:#648c45;color:var(--lime);font-weight:800}.cal-day.empty{background:transparent}.cal-day small{display:block;font-size:9px;color:var(--muted)}.stat-bars{display:grid;gap:9px}.stat-row{display:grid;grid-template-columns:65px 1fr 48px;align-items:center;gap:8px;font-size:12px}.stat-track{height:8px;background:#26364c;border-radius:20px;overflow:hidden}.stat-track i{display:block;height:100%;background:var(--lime);border-radius:20px}
 @media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}.layout{grid-template-columns:1fr}.week{grid-template-columns:repeat(4,1fr)}}
 @media(max-width:430px){.wrap{padding:14px 11px 35px}.hero{padding:20px}.week{grid-template-columns:repeat(2,1fr)}.row{grid-template-columns:1fr}}
+
+/* RUNLAB premium visual refresh */
+:root{--bg:#080e19;--panel:#101b2b;--panel2:#17263a;--line:#293b53;--lime:#c4f477;--blue:#83c5ff;--muted:#9aacc5}
+body{background:radial-gradient(ellipse at 15% -10%,#203c56 0,transparent 38%),radial-gradient(ellipse at 100% 20%,#18352c 0,transparent 28%),#080e19;letter-spacing:.005em}
+.wrap{max-width:1180px;padding-top:26px}
+.top{margin-bottom:13px}.brand{font-size:13px;letter-spacing:.18em}.pill{background:#111e2e;color:#d4e2f4;border-color:#40536d;font-weight:700}
+.tabs{position:sticky;top:0;z-index:20;margin:0 -8px 20px;padding:10px 8px 13px;background:linear-gradient(180deg,rgba(8,14,25,.97),rgba(8,14,25,.88));backdrop-filter:blur(14px);border-bottom:1px solid #26374d}
+.tabs .tab{border-radius:12px;padding:11px 16px;font-weight:750;transition:transform .16s ease,background .16s ease,border-color .16s ease}
+.tabs .tab:hover{transform:translateY(-1px);border-color:#7690ae}
+.tabs .tab.active{box-shadow:0 5px 22px #b8f36b20;background:linear-gradient(135deg,#d5ff93,#aee85b)}
+.hero{min-height:225px;padding:34px 32px;border:1px solid #3c5870;border-radius:26px;background:linear-gradient(115deg,rgba(27,49,72,.98),rgba(14,27,43,.98) 58%,rgba(28,58,47,.96));box-shadow:0 18px 55px #0005}
+.hero:before{content:"";position:absolute;width:260px;height:260px;right:11%;top:-145px;border:1px solid #c4f47735;border-radius:50%;box-shadow:0 0 0 28px #c4f47708,0 0 0 58px #c4f47705}
+.hero:after{font-size:clamp(110px,17vw,190px);right:28px;bottom:-58px;color:#e5f4ff0a;letter-spacing:-.09em}
+.hero .eyebrow{font-size:11px;letter-spacing:.2em}
+.hero h1{font-size:clamp(34px,6vw,58px);letter-spacing:-.055em;margin:13px 0 12px}
+.hero p{font-size:15px;line-height:1.7;color:#c8d6e8;max-width:580px}
+.grid{gap:13px;margin:16px 0}
+.stat,.card{background:linear-gradient(145deg,rgba(20,33,51,.98),rgba(14,25,40,.98));border:1px solid #2c405a;border-radius:20px;box-shadow:0 8px 28px #0002}
+.stat{padding:18px;position:relative;overflow:hidden}
+.stat:after{content:"";position:absolute;inset:auto -20px -42px auto;width:100px;height:100px;border-radius:50%;background:#b8f36b08}
+.stat small{font-size:11px;text-transform:uppercase;letter-spacing:.09em;font-weight:800}
+.stat strong{font-size:clamp(23px,3vw,29px);letter-spacing:-.05em}
+.card{padding:21px}
+.card h2{font-size:17px;letter-spacing:-.015em;display:flex;align-items:center;gap:8px}
+.layout{gap:16px;margin-top:16px}
+.tab-panel{animation:panelIn .22s ease both}
+@keyframes panelIn{from{opacity:.65;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+button{border-radius:12px;transition:transform .15s ease,filter .15s ease,box-shadow .15s ease}
+button:hover{filter:brightness(1.08);transform:translateY(-1px)}
+button:focus-visible,.tabs .tab:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+button.secondary{background:linear-gradient(135deg,#263b55,#1b2b40);border-color:#405671}
+input,select,textarea{background:#0b1524;border-color:#344962;border-radius:12px}
+input:focus,select:focus,textarea:focus{border-color:var(--blue);outline:none;box-shadow:0 0 0 3px #75b8ff18}
+.coach{border:1px solid #416344;border-left:4px solid var(--lime);border-radius:13px;background:linear-gradient(110deg,#1b3028,#172a26);color:#e0f4d6;padding:14px}
+.notice{border:1px solid #6c5333;border-left:4px solid var(--orange);border-radius:13px;background:linear-gradient(110deg,#30271d,#241f1a);padding:14px}
+.day{border-radius:13px;transition:transform .15s ease,border-color .15s ease}.day:hover{transform:translateY(-2px);border-color:#6b85a4}
+.day.run{background:linear-gradient(145deg,#233c2b,#172c23);border-color:#729c50}
+.day.football{background:linear-gradient(145deg,#1c3049,#17263a);border-color:#4c7198}
+.report-item{background:linear-gradient(145deg,#1b2b40,#142237);border-color:#344b67;border-radius:15px}
+.report-item b{font-size:24px;letter-spacing:-.04em}
+.calendar{gap:7px}.calendar .cal-label{font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+.calendar button.cal-day{min-height:47px;border-radius:12px}
+.calendar button.cal-day.has-run{box-shadow:inset 0 0 0 1px #d4ff9a30}
+.stat-track{height:10px;background:#263b53}.stat-track i{background:linear-gradient(90deg,#a7e85e,#d5ff98)}
+.session{padding:14px 0;border-color:#293b53}
+.tag{border:1px solid #3d5978;background:#1b3048}.tag.green{border-color:#557a42;background:#203723}
+.footer{line-height:1.65}
+@media(max-width:700px){.wrap{padding:16px 12px 38px}.hero{min-height:205px;padding:25px 21px;border-radius:21px}.hero:after{right:10px;bottom:-42px}.card{padding:17px}.stat{padding:15px}.tabs{gap:6px}.tabs .tab{padding:10px 12px;font-size:12px}.layout{gap:12px;margin-top:12px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
 </style>
 </head>
 <body>
@@ -49,9 +99,9 @@ input,select,textarea{width:100%;background:#0e1827;color:var(--text);border:1px
     <button class="tab" data-tab="stats">Statistik</button>
   </nav>
   <section class="hero">
-    <div class="eyebrow">DEIN LANGFRISTIGES PROJEKT</div>
+    <div class="eyebrow">RUNLAB · DEIN TRAINING AUF EINEN BLICK</div>
     <h1>Run your own<br>race.</h1>
-    <p>Ein persönliches Lauf-Dashboard für deinen Weg Richtung Halbmarathon. Erst gesund und konstant trainieren, dann schauen, welches Wettkampfziel realistisch ist.</p>
+    <p>Dein persönliches Lauf-Cockpit. Behalte Training, Erholung und Fortschritt im Blick – Schritt für Schritt und ohne unnötigen Druck.</p>
   </section>
   <div class="grid">
     <div class="stat"><small>Wettkampf</small><strong>Juli '27</strong><div class="sub">Datum noch offen</div></div>
