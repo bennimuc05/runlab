@@ -405,7 +405,7 @@ function escapeHtml(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;',
 function exportData(){
  const blob=new Blob([JSON.stringify(getData(),null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='runlab-training.json';a.click();URL.revokeObjectURL(url);
 }
-function clearData(){if(confirm('Alle gespeicherten Einheiten löschen?')){localStorage.removeItem('runlab_sessions');renderSessions();renderCalendar();renderStats();}}
+function clearData(){if(confirm('Alle gespeicherten Einheiten löschen?')){localStorage.removeItem('runlab_sessions');renderSessions();renderCalendar();renderStats();renderWeeklyReport();renderPersonalDashboard();}}
 init();
 </script>
 <script>if("serviceWorker" in navigator && location.protocol.startsWith("http")){navigator.serviceWorker.register("./sw.js").catch(()=>{});}</script>
