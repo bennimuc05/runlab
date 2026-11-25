@@ -267,11 +267,34 @@ body.dark-mode .settings-value{color:#aabbb0}
 body.dark-mode .setting-preview{background:#243b31}
 @media(max-width:700px){body.dark-mode .tabs{background:rgba(27,37,43,.92)}}
 
+
+/* RUNLAB V10 · notification center */
+.top-actions{display:flex;align-items:center;gap:9px}
+.bell-button{position:relative;min-width:42px;padding:9px 12px;font-size:19px;line-height:1}
+.notification-badge{position:absolute;top:-6px;right:-5px;min-width:18px;height:18px;padding:0 5px;border-radius:99px;background:#16865B;color:#fff;font-size:10px;line-height:18px;text-align:center;border:2px solid #fff}
+.notification-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.notification-heading h2{margin:4px 0}
+.notification-heading p{margin:0 0 12px}
+.notification-item{display:flex;gap:12px;padding:14px 4px;border-bottom:1px solid rgba(35,48,65,.09)}
+.notification-item:last-child{border-bottom:0}
+.notification-item.unread .notification-copy b:after{content:"";display:inline-block;width:7px;height:7px;margin-left:7px;border-radius:50%;background:#16865B;vertical-align:middle}
+.notification-icon{width:38px;height:38px;flex:0 0 38px;display:grid;place-items:center;border-radius:13px;background:#edf5e9;font-size:18px}
+.notification-copy{min-width:0}.notification-copy p{margin:3px 0 5px;color:var(--muted);font-size:13px}.notification-copy small{color:var(--muted);font-size:11px}
+.notification-empty{text-align:center;padding:32px 12px}
+.notify-inline{display:flex;gap:7px;align-items:center;min-width:0}.notify-inline select{max-width:145px}.notify-inline input{max-width:120px}
+.notify-days{margin-top:14px}.notify-day-grid{display:flex;gap:12px;flex-wrap:wrap;margin-top:9px}.notify-day-grid label{display:flex;align-items:center;gap:4px}.notify-day-grid input,.setting-row>input[type=checkbox]{width:auto;margin:0;accent-color:#16865B}
+body.dark-mode .notification-item{border-color:#344238}
+body.dark-mode .notification-icon{background:#243b31}
+body.dark-mode .notification-copy p,body.dark-mode .notification-copy small{color:#aabbb0}
+body.dark-mode .notification-badge{border-color:#18221d}
+body.dark-mode .notification-empty{color:#eef4ee}
+@media(max-width:520px){.top-actions{gap:6px}.top-actions .pill{font-size:10px;padding:6px 8px}.notification-heading{flex-direction:column}.notify-inline{flex-wrap:wrap}.notify-inline select{max-width:125px}.notify-inline input{max-width:110px}}
+
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="top"><div><div class="brand">RUNLAB / PERSONAL PERFORMANCE</div><div class="muted" style="font-size:12px">HALF MARATHON COMMAND CENTER</div></div><span class="pill">JULI 2027 · BETA</span></div>
+  <div class="top"><div><div class="brand">RUNLAB / PERSONAL PERFORMANCE</div><div class="muted" style="font-size:12px">HALF MARATHON COMMAND CENTER</div></div><div class="top-actions"><button class="secondary bell-button" id="notificationBell" aria-label="Benachrichtigungen öffnen" title="Benachrichtigungen">♧ <span id="notificationBadge" class="notification-badge hidden">0</span></button><span class="pill">JULI 2027 · BETA</span></div></div>
   <nav class="tabs" id="mainTabs" aria-label="RUNLAB Bereiche">
     <button class="tab active" data-tab="dashboard">Dashboard</button>
     <button class="tab" data-tab="plan">Plan</button>
@@ -425,13 +448,22 @@ function setupTabs(){
  const safety=nodes.find(n=>n.classList.contains('notice')&&n.textContent.includes('Gesundheit zuerst'));
  const footer=nodes.find(n=>n.classList.contains('footer')&&n.textContent.includes('RUNLAB'));
  const panels={};
- Object.keys({dashboard:1,plan:1,coach:1,training:1,calendar:1,stats:1,settings:1}).forEach(key=>{
+ Object.keys({dashboard:1,plan:1,coach:1,training:1,calendar:1,stats:1,settings:1,notifications:1}).forEach(key=>{
   const panel=document.createElement('section');panel.className='tab-panel'+(key==='dashboard'?' active':'');panel.id='panel-'+key;panels[key]=panel;wrap.appendChild(panel);
  });
  const report=document.createElement('div');report.className='card';report.style.marginTop='14px';report.innerHTML='<h2>🧾 Wochenbericht</h2><p class="muted" style="font-size:13px">Deine letzten 7 Tage im Vergleich zu den 7 Tagen davor.</p><div id="weeklyReport" class="report-grid"></div><div id="weeklyAdvice" class="coach" style="margin-top:12px"></div>';
  const personal=document.createElement('div');personal.className='layout';personal.innerHTML='<div class="card"><h2>🎯 Dein aktueller Trainingsstatus</h2><div id="personalStatus" class="coach">Deine Daten werden ausgewertet …</div><h3 style="margin-top:16px">Lauf-Fortschritt · letzte 4 Wochen</h3><div id="progressChart" class="stat-bars"></div><p class="footer">Nur tatsächlich gespeicherte Laufeinheiten werden angezeigt. Fehlende Daten werden nicht geschätzt.</p></div><div class="card"><h2>🗓️ Die nächsten 7 Tage</h2><div id="nextSevenDays" class="stat-bars"></div><p class="footer">Orientierung anhand deiner ausgewählten Fußball- und möglichen Lauftage – keine automatische Kalender-Synchronisierung.</p></div>';
  panels.dashboard.append(hero,grids[0],report,personal);
- panels.settings.innerHTML='<div class="card settings-card"><div class="settings-kicker">RUNLAB PERSONALISIEREN</div><h2>Darstellung</h2><p class="muted">Passe das Erscheinungsbild an. Deine Auswahl wird auf diesem Gerät gespeichert.</p><div class="setting-row"><div><b>Darstellungsmodus</b><small>Automatisch folgt der Einstellung deines Geräts.</small></div><select id="themeSetting" aria-label="Darstellungsmodus"><option value="system">Automatisch (Gerät)</option><option value="light">Immer hell</option><option value="dark">Immer dunkel</option></select></div><div class="setting-row"><div><b>Akzentfarbe</b><small>Die RUNLAB-Hauptfarbe für aktive Elemente und Highlights.</small></div><select id="accentSetting" aria-label="Akzentfarbe"><option value="green">Emerald Green</option><option value="blue">Blau</option><option value="orange">Orange</option><option value="purple">Violett</option></select></div><div class="setting-preview"><span class="preview-dot"></span><span><b>RUNLAB</b><small id="appearanceSummary">Systemdesign · Emerald Green</small></span></div></div><div class="card settings-card"><h2>Über RUNLAB</h2><div class="setting-row"><div><b>Version</b><small>RUNLAB V9</small></div><span class="settings-value">V9</span></div><div class="setting-row"><div><b>Datenspeicherung</b><small>Trainingsdaten und Einstellungen bleiben lokal in diesem Browser.</small></div><span class="settings-value">Lokal</span></div><p class="footer">Das Ändern der Darstellung verändert oder löscht keine gespeicherten Trainingseinheiten.</p></div>';
+ panels.settings.innerHTML='<div class="card settings-card"><div class="settings-kicker">RUNLAB PERSONALISIEREN</div><h2>Darstellung</h2><p class="muted">Passe das Erscheinungsbild an. Deine Auswahl wird auf diesem Gerät gespeichert.</p><div class="setting-row"><div><b>Darstellungsmodus</b><small>Automatisch folgt der Einstellung deines Geräts.</small></div><select id="themeSetting" aria-label="Darstellungsmodus"><option value="system">Automatisch (Gerät)</option><option value="light">Immer hell</option><option value="dark">Immer dunkel</option></select></div><div class="setting-row"><div><b>Akzentfarbe</b><small>Die RUNLAB-Hauptfarbe für aktive Elemente und Highlights.</small></div><select id="accentSetting" aria-label="Akzentfarbe"><option value="green">Emerald Green</option><option value="blue">Blau</option><option value="orange">Orange</option><option value="purple">Violett</option></select></div><div class="setting-preview"><span class="preview-dot"></span><span><b>RUNLAB</b><small id="appearanceSummary">Systemdesign · Emerald Green</small></span></div><div class="card settings-card"><h2>🛎️ Erinnerungen</h2><p class="muted">Lege fest, woran RUNLAB dich erinnern soll. Die Einstellungen werden auf diesem Gerät gespeichert.</p><div class="setting-row"><div><b>Trainingserinnerung</b><small>An ausgewählten Tagen zur gewünschten Uhrzeit.</small></div><input id="notifyTraining" type="checkbox" checked></div><div class="setting-row"><div><b>Wöchentlicher Überblick</b><small>Erinnert dich an deinen Wochenbericht.</small></div><input id="notifyWeekly" type="checkbox" checked></div><div class="setting-row"><div><b>Regenerations-Check-in</b><small>Kurze Erinnerung, deine Erholung einzuschätzen.</small></div><input id="notifyRecovery" type="checkbox"></div><div class="setting-row"><div><b>Wettkampf-Countdown</b><small>Erinnerung 30 und 7 Tage vor dem Termin.</small></div><input id="notifyRace" type="checkbox" checked></div><div class="setting-row"><div><b>Uhrzeit für Training</b><small>Standard: 17:00 Uhr.</small></div><input id="notifyTime" type="time" value="17:00"></div><div class="setting-row"><div><b>Wöchentlicher Bericht</b><small>Standard: Sonntag, 18:00 Uhr.</small></div><div class="notify-inline"><select id="notifyWeeklyDay"><option value="0">Sonntag</option><option value="1">Montag</option><option value="2">Dienstag</option><option value="3">Mittwoch</option><option value="4">Donnerstag</option><option value="5">Freitag</option><option value="6">Samstag</option></select><input id="notifyWeeklyTime" type="time" value="18:00"></div></div><div class="notify-days"><b>Trainingstage</b><div class="notify-day-grid"><label><input type="checkbox" class="notify-day" value="0" > Mo</label><label><input type="checkbox" class="notify-day" value="1" checked> Di</label><label><input type="checkbox" class="notify-day" value="2" > Mi</label><label><input type="checkbox" class="notify-day" value="3" > Do</label><label><input type="checkbox" class="notify-day" value="4" > Fr</label><label><input type="checkbox" class="notify-day" value="5" checked> Sa</label><label><input type="checkbox" class="notify-day" value="6" > So</label></div></div><div class="actions" style="margin-top:14px"><button id="saveNotifySettings">Einstellungen speichern</button><button class="secondary" id="enableBrowserNotifications">Pixel-Benachrichtigungen aktivieren</button></div><p id="notificationPermissionStatus" class="footer">In-App-Erinnerungen funktionieren, wenn RUNLAB geöffnet ist. Pixel-Benachrichtigungen benötigen deine Zustimmung.</p></div></div><div class="card settings-card"><h2>Über RUNLAB</h2><div class="setting-row"><div><b>Version</b><small>RUNLAB V9</small></div><span class="settings-value">V9</span></div><div class="setting-row"><div><b>Datenspeicherung</b><small>Trainingsdaten und Einstellungen bleiben lokal in diesem Browser.</small></div><span class="settings-value">Lokal</span></div><p class="footer">Das Ändern der Darstellung verändert oder löscht keine gespeicherten Trainingseinheiten.</p></div>';
+ panels.notifications.innerHTML='<div class="card notification-center"><div class="notification-heading"><div><div class="settings-kicker">RUNLAB INBOX</div><h2>Benachrichtigungen</h2><p class="muted">Deine Erinnerungen und Hinweise auf einen Blick.</p></div><button class="secondary" id="markNotificationsRead">Alle gelesen</button></div><div id="notificationList"></div><div class="actions" style="margin-top:14px"><button class="secondary" id="closeNotifications">Zurück zum Dashboard</button><button class="secondary" id="clearNotifications">Verlauf leeren</button></div></div>';
+ $('notificationBell').addEventListener('click',openNotifications);
+ $('closeNotifications').addEventListener('click',()=>document.querySelector('#mainTabs .tab.active')?.click());
+ $('markNotificationsRead').addEventListener('click',markNotificationsRead);
+ $('clearNotifications').addEventListener('click',clearNotifications);
+ ['notifyTraining','notifyWeekly','notifyRecovery','notifyRace','notifyTime','notifyWeeklyDay','notifyWeeklyTime'].forEach(id=>$(id).addEventListener('change',saveNotificationSettings));
+ document.querySelectorAll('.notify-day').forEach(el=>el.addEventListener('change',saveNotificationSettings));
+ $('saveNotifySettings').addEventListener('click',saveNotificationSettings);
+ $('enableBrowserNotifications').addEventListener('click',requestBrowserNotifications);
  $('themeSetting').addEventListener('change',applyPreferences);
  $('accentSetting').addEventListener('change',applyPreferences);
  if(layouts[0]){panels.plan.append(layouts[0].children[0]);panels.coach.append(layouts[0].children[0]);}
@@ -447,6 +479,69 @@ function setupTabs(){
   Object.entries(panels).forEach(([key,panel])=>panel.classList.toggle('active',key===btn.dataset.tab));
  }));
 }
+
+function getNotificationPrefs(){
+ try{return Object.assign({training:true,weekly:true,recovery:false,race:true,time:'17:00',weeklyDay:0,weeklyTime:'18:00',days:[1,5]},JSON.parse(localStorage.getItem('runlab_notification_settings')||'{}'));}
+ catch(e){return {training:true,weekly:true,recovery:false,race:true,time:'17:00',weeklyDay:0,weeklyTime:'18:00',days:[1,5]};}
+}
+function saveNotificationSettings(){
+ const p={training:$('notifyTraining').checked,weekly:$('notifyWeekly').checked,recovery:$('notifyRecovery').checked,race:$('notifyRace').checked,time:$('notifyTime').value||'17:00',weeklyDay:Number($('notifyWeeklyDay').value),weeklyTime:$('notifyWeeklyTime').value||'18:00',days:[...document.querySelectorAll('.notify-day:checked')].map(x=>Number(x.value))};
+ try{localStorage.setItem('runlab_notification_settings',JSON.stringify(p));}catch(e){}
+ const status=$('notificationPermissionStatus');if(status)status.textContent='Einstellungen gespeichert. Erinnerungen werden geprüft, solange RUNLAB geöffnet ist.';
+}
+function loadNotifications(){try{return JSON.parse(localStorage.getItem('runlab_notifications')||'[]')}catch(e){return [];}}
+function storeNotifications(items){try{localStorage.setItem('runlab_notifications',JSON.stringify(items.slice(0,40)));}catch(e){}}
+function updateNotificationBell(){
+ const unread=loadNotifications().filter(n=>!n.read).length,badge=$('notificationBadge');
+ if(!badge)return;badge.textContent=String(unread);badge.classList.toggle('hidden',unread===0);
+}
+function renderNotificationList(){
+ const list=$('notificationList');if(!list)return;
+ const items=loadNotifications();
+ list.innerHTML=items.length?items.map(n=>'<div class="notification-item '+(n.read?'read':'unread')+'"><div class="notification-icon">'+(n.type==='training'?'🏃':n.type==='weekly'?'📊':n.type==='race'?'🏁':'🌿')+'</div><div class="notification-copy"><b>'+escapeHtml(n.title)+'</b><p>'+escapeHtml(n.message)+'</p><small>'+escapeHtml(n.date)+'</small></div></div>').join(''):'<div class="notification-empty"><div style="font-size:28px">🔔</div><b>Alles ruhig</b><p class="muted">Hier erscheinen deine RUNLAB-Erinnerungen.</p></div>';
+ updateNotificationBell();
+}
+function openNotifications(){
+ document.querySelectorAll('#mainTabs .tab').forEach(b=>b.classList.remove('active'));
+ document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+ $('panel-notifications').classList.add('active');renderNotificationList();
+}
+function markNotificationsRead(){const a=loadNotifications().map(n=>({...n,read:true}));storeNotifications(a);renderNotificationList();}
+function clearNotifications(){storeNotifications([]);renderNotificationList();}
+function pushNotification(type,title,message,key){
+ const items=loadNotifications();if(items.some(n=>n.key===key))return;
+ const item={type,title,message,key,read:false,date:new Date().toLocaleString('de-DE',{dateStyle:'short',timeStyle:'short'})};
+ items.unshift(item);storeNotifications(items);renderNotificationList();
+ if('Notification' in window&&Notification.permission==='granted'){
+  navigator.serviceWorker?.ready.then(reg=>reg.showNotification(title,{body:message,icon:'./icon.svg',tag:key})).catch(()=>{});
+ }
+}
+function timeReached(target){const now=new Date();return now.getHours()*60+now.getMinutes()>=Number(target.slice(0,2))*60+Number(target.slice(3,5));}
+function checkScheduledNotifications(){
+ const p=getNotificationPrefs(),now=new Date(),day=now.getDay(),dateKey=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');
+ if(p.training&&p.days.includes((day+6)%7)&&timeReached(p.time))pushNotification('training','Zeit für deinen Trainingscheck','Schau in RUNLAB, ob heute eine lockere Einheit passt. Bei Müdigkeit oder Fußballbelastung hat Erholung Vorrang.','training-'+dateKey);
+ if(p.weekly&&day===Number(p.weeklyDay)&&timeReached(p.weeklyTime))pushNotification('weekly','Dein Wochenüberblick ist bereit','Wirf einen Blick auf deine dokumentierten Einheiten und deine Erholung.','weekly-'+dateKey);
+ if(p.recovery&&timeReached('20:00'))pushNotification('recovery','Kurzer Regenerations-Check-in','Wie fühlst du dich heute? Plane zusätzliche Belastung nur, wenn du dich gut erholt fühlst.','recovery-'+dateKey);
+ if(p.race&&['2027-06-04','2027-06-27'].includes(dateKey))pushNotification('race','Wettkampf-Countdown','Dein eingetragener Wettkampftermin rückt näher. Prüfe deine Planung und Erholung.','race-'+dateKey);
+}
+async function requestBrowserNotifications(){
+ const status=$('notificationPermissionStatus');
+ if(!('Notification' in window)){status.textContent='Dieser Browser unterstützt keine Web-Benachrichtigungen.';return;}
+ if(!('serviceWorker' in navigator)){status.textContent='Service Worker werden in diesem Browser nicht unterstützt.';return;}
+ try{const permission=await Notification.requestPermission();status.textContent=permission==='granted'?'Pixel-Benachrichtigungen erlaubt. Erinnerungen werden geprüft, solange RUNLAB geöffnet ist.':permission==='denied'?'Benachrichtigungen wurden im Browser abgelehnt. Du kannst sie in den Website-Einstellungen von Chrome ändern.':'Noch keine Berechtigung erteilt.';if(permission==='granted')checkScheduledNotifications();}
+ catch(e){status.textContent='Die Benachrichtigungsberechtigung konnte nicht abgefragt werden.';}
+}
+function initNotifications(){
+ const p=getNotificationPrefs();
+ $('notifyTraining').checked=p.training;$('notifyWeekly').checked=p.weekly;$('notifyRecovery').checked=p.recovery;$('notifyRace').checked=p.race;
+ $('notifyTime').value=p.time;$('notifyWeeklyDay').value=String(p.weeklyDay);$('notifyWeeklyTime').value=p.weeklyTime;
+ document.querySelectorAll('.notify-day').forEach(el=>el.checked=p.days.includes(Number(el.value)));
+ const status=$('notificationPermissionStatus');
+ if(status&&'Notification' in window)status.textContent=Notification.permission==='granted'?'Pixel-Benachrichtigungen sind erlaubt. Erinnerungen werden geprüft, solange RUNLAB geöffnet ist.':'In-App-Erinnerungen funktionieren, wenn RUNLAB geöffnet ist. Pixel-Benachrichtigungen benötigen deine Zustimmung.';
+ renderNotificationList();checkScheduledNotifications();setInterval(checkScheduledNotifications,30000);
+ document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkScheduledNotifications();});
+}
+
 function readPreferences(){
  try{return Object.assign({theme:'system',accent:'green'},JSON.parse(localStorage.getItem('runlab_preferences')||'{}'));}
  catch(e){return {theme:'system',accent:'green'};}
@@ -476,6 +571,7 @@ function initPreferences(){
 function init(){
   setupTabs();
   initPreferences();
+  initNotifications();
   updateRaceCountdown();setInterval(updateRaceCountdown,1000);
   setupSwipeNavigation();
   ['runA','runB'].forEach(id=>$(id).innerHTML=days.map((d,i)=>`<option value="${i}">${['Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag','Sonntag'][i]}</option>`).join(''));
