@@ -1,4 +1,4 @@
-const CACHE = "runlab-v2.0-performance-os";
+const CACHE = "runlab-v2.0-layout-fix-1";
 const FILES = ["./", "./index.html", "./manifest.webmanifest", "./icon.svg"];
 
 self.addEventListener("install", event => {
