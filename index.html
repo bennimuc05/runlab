@@ -494,6 +494,114 @@ body:has(.coach-companion.visible) .v2-fab{
   body:has(.coach-companion.visible) .v2-fab{bottom:150px}
 }
 
+
+
+/* RUNLAB V2.0 REVOLUTION — Emerald Glass / Cinematic Design System */
+:root{
+  --accent:#10b981;--accent-strong:#059669;--accent-soft:rgba(16,185,129,.14);
+  --bg:#070d12;--panel:rgba(17,28,35,.82);--panel2:#14232a;--line:rgba(167,205,190,.14);
+  --text:#edf7f2;--muted:#9aafa6;--v2-shadow:0 24px 70px rgba(0,0,0,.28);
+  color-scheme:dark;
+}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{
+  background:
+    radial-gradient(ellipse at 8% -8%,rgba(16,185,129,.19),transparent 34%),
+    radial-gradient(ellipse at 100% 18%,rgba(20,90,72,.16),transparent 31%),
+    linear-gradient(145deg,#070d12 0%,#0a1218 48%,#08110f 100%);
+  color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"SF Pro Display",system-ui,sans-serif;
+  letter-spacing:-.02em;min-height:100vh;
+}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background-image:linear-gradient(rgba(255,255,255,.012) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.012) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,black,transparent 78%)}
+.wrap{max-width:1320px;padding:26px 24px 100px}
+.top{padding:10px 0 18px;margin-bottom:14px}
+.top-brand{gap:15px}
+.brand{color:#72e3b5;letter-spacing:.23em;font-size:12px}
+.top-brand .muted{letter-spacing:.12em;font-size:10px!important;font-weight:750}
+.menu-trigger{width:44px;height:44px;border-radius:15px!important;background:rgba(255,255,255,.055)!important;border:1px solid var(--line)!important;box-shadow:inset 0 1px rgba(255,255,255,.06)!important;display:grid;align-content:center;justify-content:center;gap:5px;padding:10px!important}
+.menu-trigger span{display:block;width:17px;height:2px;border-radius:4px;background:#c8f5e2;transition:transform .35s cubic-bezier(.2,.8,.2,1),width .3s}
+.menu-trigger[aria-expanded=true] span:first-child{transform:translateY(3.5px) rotate(45deg)}
+.menu-trigger[aria-expanded=true] span:nth-child(2){opacity:0}
+.menu-trigger[aria-expanded=true] span:last-child{transform:translateY(-3.5px) rotate(-45deg)}
+.pill,.v2-version{background:rgba(16,185,129,.08);border-color:rgba(52,211,153,.25);color:#8de8c3;backdrop-filter:blur(18px)}
+.hero{
+  border:1px solid rgba(112,220,178,.22);border-radius:32px;
+  background:linear-gradient(122deg,rgba(16,48,41,.94),rgba(12,27,31,.92) 55%,rgba(13,44,35,.88));
+  box-shadow:0 30px 90px rgba(0,0,0,.28),inset 0 1px rgba(255,255,255,.09);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+}
+.hero:before{border-color:rgba(110,231,183,.38);box-shadow:0 0 0 32px rgba(16,185,129,.045),0 0 0 70px rgba(16,185,129,.025)}
+.hero:after{color:rgba(167,243,208,.055)}
+.hero .eyebrow,.v2-kicker{color:#6ee7b7}
+.hero h1{font-weight:850;letter-spacing:-.085em;text-shadow:0 8px 40px rgba(0,0,0,.22)}
+.hero p{color:#c0d8ce}
+.race-countdown{border-color:rgba(110,231,183,.23);background:rgba(3,15,13,.43);box-shadow:inset 0 1px rgba(255,255,255,.06),0 12px 34px rgba(0,0,0,.16)}
+.countdown-dot{background:#34d399;box-shadow:0 0 16px #34d399}
+.grid{gap:14px}
+.stat,.card,.v2-focus,.v2-overview{
+  background:linear-gradient(145deg,rgba(22,39,43,.88),rgba(12,25,29,.86));
+  border:1px solid rgba(155,210,187,.15);border-radius:23px;
+  box-shadow:0 16px 48px rgba(0,0,0,.16),inset 0 1px rgba(255,255,255,.045);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+}
+.stat{position:relative;overflow:hidden;transition:transform .5s cubic-bezier(.2,.8,.2,1),border-color .4s,box-shadow .4s}
+.stat:after{content:"";position:absolute;width:110px;height:110px;right:-45px;bottom:-65px;border-radius:50%;background:rgba(16,185,129,.12);filter:blur(5px)}
+.stat:hover,.card:hover{transform:translateY(-3px);border-color:rgba(110,231,183,.32);box-shadow:0 22px 55px rgba(0,0,0,.24),0 0 35px rgba(16,185,129,.045)}
+.stat strong{font-size:clamp(24px,3vw,31px);letter-spacing:-.065em;font-variant-numeric:tabular-nums}
+.stat small,.muted,.stat .sub{color:var(--muted)}
+.card h2{font-size:16px;letter-spacing:-.035em}
+button,.v2-action{background:linear-gradient(135deg,#10b981,#059669);color:#04150f;border-radius:13px;font-weight:800;box-shadow:0 8px 25px rgba(16,185,129,.16);transition:transform .35s cubic-bezier(.2,.8,.2,1),filter .3s,box-shadow .3s}
+button:hover,.v2-action:hover{transform:translateY(-2px);filter:brightness(1.08);box-shadow:0 13px 32px rgba(16,185,129,.23)}
+button:active{transform:scale(.97)}
+button.secondary,.v2-action.secondary{background:rgba(255,255,255,.055);color:var(--text);border:1px solid var(--line);box-shadow:none}
+input,select,textarea{background:rgba(4,15,18,.72);border:1px solid rgba(155,210,187,.18);color:var(--text);border-radius:13px}
+input:focus,select:focus,textarea:focus{border-color:#34d399;box-shadow:0 0 0 4px rgba(16,185,129,.12)}
+.tabs{background:rgba(9,19,23,.86);border:1px solid var(--line);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+.tabs .tab{color:#a8bdb4;border-radius:12px;transition:all .35s cubic-bezier(.2,.8,.2,1)}
+.tabs .tab.active{background:linear-gradient(135deg,#34d399,#059669);color:#052017;box-shadow:0 8px 24px rgba(16,185,129,.2)}
+.tab-panel.active{animation:runlabCinematicIn .62s cubic-bezier(.18,.75,.22,1) both;transform-origin:50% 10%}
+@keyframes runlabCinematicIn{0%{opacity:0;transform:translateY(18px) scale(.985);filter:blur(7px)}65%{opacity:1;filter:blur(0)}100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
+.v2-focus,.v2-overview{border-color:rgba(110,231,183,.18)}
+.v2-chip{background:rgba(16,185,129,.08);border-color:rgba(110,231,183,.2);color:#a6e9ce}
+.v2-mini{background:rgba(255,255,255,.035);border-color:var(--line)}
+.v2-mini strong{color:#e3fff2}
+.v2-fab{background:linear-gradient(135deg,#34d399,#059669);color:#052017;box-shadow:0 15px 38px rgba(16,185,129,.28)}
+.nav-drawer{background:rgba(8,18,21,.96)!important;border-right:1px solid rgba(110,231,183,.16)!important;backdrop-filter:blur(30px)!important;-webkit-backdrop-filter:blur(30px)!important}
+.drawer-overview,.drawer-next,.drawer-metrics>div,.drawer-race{background:rgba(255,255,255,.045)!important;border-color:var(--line)!important}
+.drawer-live{color:#6ee7b7!important}
+.drawer-backdrop.visible{backdrop-filter:blur(5px)}
+.coach-bubble,.coach-companion .coach-bubble{background:rgba(13,31,27,.94)!important;border-color:rgba(110,231,183,.24)!important;color:#eafff4!important;box-shadow:0 20px 55px rgba(0,0,0,.3)!important}
+.coach-bubble b{color:#6ee7b7!important}
+.coach{background:rgba(16,185,129,.09);border-color:rgba(110,231,183,.18);color:#d9f8e9}
+.notice{backdrop-filter:blur(12px)}
+.report-item,.day,.v2-backup-tile{background:rgba(255,255,255,.035);border-color:var(--line)}
+.day.run,.calendar button.cal-day.has-run{background:rgba(16,185,129,.17)!important;border-color:rgba(110,231,183,.55)!important;color:#b9f8dc!important}
+.stat-track,.bar{background:rgba(255,255,255,.09)}
+.stat-track i,.bar i{background:linear-gradient(90deg,#059669,#6ee7b7)}
+.footer{color:#829b90}
+#mobileDock{display:none}
+@media(max-width:760px){
+ .wrap{padding:14px 13px 116px}
+ .top{padding:4px 0 14px}
+ .hero{border-radius:25px}
+ .tabs{display:flex}
+ #mobileDock{
+  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;
+  position:fixed;z-index:110;left:10px;right:10px;bottom:max(9px,env(safe-area-inset-bottom));
+  padding:7px;border:1px solid rgba(110,231,183,.2);border-radius:20px;
+  background:rgba(7,18,20,.88);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);
+  box-shadow:0 14px 48px rgba(0,0,0,.42),inset 0 1px rgba(255,255,255,.07)
+ }
+ #mobileDock button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-width:0;padding:8px 2px;border:1px solid transparent;border-radius:13px;background:transparent;color:#9ab2a7;box-shadow:none;font-size:9px;font-weight:750}
+ #mobileDock button span:first-child{font-size:17px;line-height:1.1}
+ #mobileDock button.active{background:rgba(16,185,129,.16);border-color:rgba(110,231,183,.2);color:#8ff0c5}
+ .v2-fab{bottom:94px!important}
+ body:has(.coach-companion.visible) .v2-fab{bottom:178px!important}
+}
+@media(prefers-reduced-motion:reduce){
+ .tab-panel.active{animation:none!important}
+ *,*:before,*:after{scroll-behavior:auto!important;transition-duration:.01ms!important}
+}
 </style>
 </head>
 <body>
@@ -715,6 +823,7 @@ function setupTabs(){
   const target=panels[key]||document.getElementById('panel-'+key);
   if(!target)return false;
   document.querySelectorAll('#mainTabs .tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===key));
+  document.querySelectorAll('#mobileDock [data-dock-tab]').forEach(b=>b.classList.toggle('active',b.dataset.dockTab===key));
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active',p===target));
   if(key==='coach')showCoachCompanion();else hideCoachCompanion();
   if(key==='journal')renderJournal();
@@ -722,6 +831,7 @@ function setupTabs(){
   closeNavigationDrawer();
   return true;
  };
+ document.getElementById('mobileDock')?.addEventListener('click',e=>{const b=e.target.closest('[data-dock-tab],#dockMenu');if(!b)return;if(b.id==='dockMenu'){toggleNavigationDrawer();return;}window.runlabShowTab(b.dataset.dockTab);});
  document.getElementById('mainTabs').addEventListener('click',e=>{
   const btn=e.target.closest('.tab[data-tab]');
   if(!btn)return;
@@ -1163,5 +1273,6 @@ function clearData(){if(confirm('Alle gespeicherten Einheiten löschen?')){local
 init();
 </script>
 <script>if("serviceWorker" in navigator && location.protocol.startsWith("http")){navigator.serviceWorker.register("./sw.js").catch(()=>{});}</script>
+<nav id="mobileDock" aria-label="Schnellnavigation"><button type="button" data-dock-tab="dashboard" class="active"><span>⌂</span><span>Home</span></button><button type="button" data-dock-tab="plan"><span>◷</span><span>Plan</span></button><button type="button" data-dock-tab="training"><span>↗</span><span>Training</span></button><button type="button" data-dock-tab="stats"><span>▥</span><span>Insights</span></button><button type="button" id="dockMenu"><span>☰</span><span>Mehr</span></button></nav>
 <button class="v2-fab" type="button" onclick="openQuickEntry()" aria-label="Training eintragen"><span>＋</span> Einheit eintragen</button>
 </body></html>
