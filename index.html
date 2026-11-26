@@ -476,6 +476,24 @@ body{font-family:Inter,-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe 
 @media(max-width:760px){.v2-command{grid-template-columns:1fr}.v2-focus,.v2-overview{padding:17px;border-radius:19px}.v2-fab{right:13px;bottom:88px;padding:13px 16px}.v2-backup-grid{grid-template-columns:1fr}.hero{min-height:0}}
 @media(prefers-reduced-motion:reduce){.stat,.card{transition:none}}
 
+
+/* V2.0 layout hotfix: separate the floating quick-entry action from the coach */
+.coach-companion.visible ~ .v2-fab,
+body:has(.coach-companion.visible) .v2-fab{
+  bottom:178px;
+  right:max(14px,env(safe-area-inset-right));
+}
+@media(max-width:760px){
+  body:has(.coach-companion.visible) .v2-fab{
+    bottom:176px;
+    right:12px;
+    padding:11px 14px;
+  }
+}
+@media(max-height:560px){
+  body:has(.coach-companion.visible) .v2-fab{bottom:150px}
+}
+
 </style>
 </head>
 <body>
