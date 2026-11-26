@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#101827">
 <link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg" type="image/svg+xml">
-<title>Half Marathon Command Center</title>
+<title>RUNLAB V2.0 · Personal Performance OS</title>
 <style>
 :root{--bg:#0b1220;--panel:#131e30;--panel2:#1a2940;--text:#eef4ff;--muted:#9aabc4;--line:#2b3b54;--lime:#b8f36b;--blue:#75b8ff;--orange:#ffbf69;--red:#ff8585}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 85% 0%,#1b3551 0,transparent 34%),var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
@@ -430,6 +430,52 @@ body.dark-mode .coach-bubble{background:rgba(27,42,50,.94);border-color:rgba(220
 @keyframes coachBubbleIn{from{opacity:0;transform:translateY(12px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
 @media(max-width:700px){.tabs{grid-template-columns:repeat(5,minmax(0,1fr))!important;grid-auto-rows:minmax(38px,auto);padding:6px}.tabs .tab{font-size:10px;padding:8px 1px}.wrap{padding-bottom:122px!important}#coachCompanion{width:min(310px,calc(100vw - 20px))}#coachCompanion .coach-avatar{width:112px}#coachCompanion .coach-bubble{max-width:205px;padding:12px 14px}}
 @media(prefers-reduced-motion:reduce){#coachCompanion .coach-avatar,#coachCompanion .coach-bubble{animation:none!important}}
+
+/* RUNLAB V2.0 — Performance OS */
+:root{--v2-accent:var(--accent,#16865B);--v2-glass:rgba(255,255,255,.065);--v2-shadow:0 18px 55px rgba(0,0,0,.12)}
+body{font-family:Inter,-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;letter-spacing:-.018em}
+.wrap{max-width:1240px;padding-top:24px}
+.brand{font-size:13px;letter-spacing:.2em;font-weight:900}
+.top{align-items:center}
+.hero{isolation:isolate;min-height:260px;padding:clamp(25px,4vw,42px);border-radius:30px;overflow:hidden}
+.hero:before{width:360px;height:360px;right:8%;top:-220px;border-color:color-mix(in srgb,var(--accent) 32%,transparent);box-shadow:0 0 0 38px color-mix(in srgb,var(--accent) 6%,transparent),0 0 0 78px color-mix(in srgb,var(--accent) 4%,transparent)}
+.hero h1{letter-spacing:-.075em;font-weight:850}
+.hero p{font-size:15px;max-width:590px}
+.stat,.card{border-radius:23px;transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease}
+.card:hover,.stat:hover{border-color:color-mix(in srgb,var(--accent) 28%,var(--line));box-shadow:var(--v2-shadow)}
+.tabs{border-radius:18px}
+.tabs .tab{font-weight:720}
+.v2-command{display:grid;grid-template-columns:1.25fr .75fr;gap:13px;margin:14px 0}
+.v2-focus,.v2-overview{border:1px solid var(--line);border-radius:23px;padding:21px;background:linear-gradient(140deg,var(--panel),color-mix(in srgb,var(--accent) 7%,var(--panel)));box-shadow:var(--v2-shadow)}
+.v2-kicker{font-size:10px;font-weight:900;letter-spacing:.18em;color:var(--accent);text-transform:uppercase}
+.v2-focus h2{font-size:clamp(21px,3vw,29px);letter-spacing:-.055em;margin:9px 0 6px}
+.v2-focus p{color:var(--muted);font-size:13px;line-height:1.65;margin:0;max-width:620px}
+.v2-focus-foot{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:16px}
+.v2-chip{border:1px solid var(--line);background:var(--v2-glass);border-radius:999px;padding:7px 10px;font-size:11px;font-weight:750;color:var(--muted)}
+.v2-overview-title{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.v2-overview-title b{font-size:13px}
+.v2-mini-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:12px}
+.v2-mini{background:var(--v2-glass);border:1px solid var(--line);border-radius:15px;padding:12px}
+.v2-mini span{display:block;font-size:10px;color:var(--muted);font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.v2-mini strong{display:block;font-size:23px;letter-spacing:-.055em;margin-top:3px;font-variant-numeric:tabular-nums}
+.v2-mini small{font-size:10px;color:var(--muted)}
+.v2-action{display:inline-flex;align-items:center;justify-content:center;gap:7px;text-decoration:none;border:0;border-radius:13px;padding:11px 15px;background:var(--accent);color:white;font:inherit;font-weight:800;cursor:pointer}
+.v2-action.secondary{background:var(--v2-glass);border:1px solid var(--line);color:var(--text)}
+.v2-fab{position:fixed;right:20px;bottom:22px;z-index:45;border:0;border-radius:999px;padding:15px 19px;background:var(--accent);color:#fff;box-shadow:0 12px 35px color-mix(in srgb,var(--accent) 30%,transparent);font-weight:850;display:flex;align-items:center;gap:9px}
+.v2-fab span{font-size:20px;line-height:1}
+.v2-backup{margin-top:14px}
+.v2-backup-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.v2-backup-tile{border:1px solid var(--line);border-radius:17px;padding:15px;background:var(--v2-glass)}
+.v2-backup-tile b{display:block;margin-bottom:5px}
+.v2-backup-tile p{font-size:12px;color:var(--muted);line-height:1.55;min-height:38px}
+.v2-backup-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.v2-backup-actions input{max-width:100%;font-size:12px}
+.v2-status{font-size:12px;color:var(--muted);margin-top:10px;min-height:18px}
+.v2-version{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:850;letter-spacing:.08em;border:1px solid color-mix(in srgb,var(--accent) 28%,var(--line));border-radius:999px;padding:6px 10px;color:var(--accent)}
+.v2-version:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
+@media(max-width:760px){.v2-command{grid-template-columns:1fr}.v2-focus,.v2-overview{padding:17px;border-radius:19px}.v2-fab{right:13px;bottom:88px;padding:13px 16px}.v2-backup-grid{grid-template-columns:1fr}.hero{min-height:0}}
+@media(prefers-reduced-motion:reduce){.stat,.card{transition:none}}
+
 </style>
 </head>
 <body>
@@ -451,7 +497,7 @@ body.dark-mode .coach-bubble{background:rgba(27,42,50,.94);border-color:rgba(220
       <button class="tab" data-tab="recovery"><span class="nav-icon">♡</span>Erholung</button>
       <button class="tab" data-tab="settings"><span class="nav-icon">⚙</span>Einstellungen</button>
     </nav>
-    <div class="drawer-foot">RUNLAB · V15</div>
+    <div class="drawer-foot">RUNLAB · V2.0</div>
   </aside>
   <section class="hero">
     <div class="eyebrow">RUNLAB · DEIN TRAINING AUF EINEN BLICK</div>
@@ -603,6 +649,8 @@ function setupTabs(){
  const report=document.createElement('div');report.className='card';report.style.marginTop='14px';report.innerHTML='<h2>🧾 Wochenbericht</h2><p class="muted" style="font-size:13px">Deine letzten 7 Tage im Vergleich zu den 7 Tagen davor.</p><div id="weeklyReport" class="report-grid"></div><div id="weeklyAdvice" class="coach" style="margin-top:12px"></div>';
  const personal=document.createElement('div');personal.className='layout';personal.innerHTML='<div class="card"><h2>🎯 Dein aktueller Trainingsstatus</h2><div id="personalStatus" class="coach">Deine Daten werden ausgewertet …</div><h3 style="margin-top:16px">Lauf-Fortschritt · letzte 4 Wochen</h3><div id="progressChart" class="stat-bars"></div><p class="footer">Nur tatsächlich gespeicherte Laufeinheiten werden angezeigt. Fehlende Daten werden nicht geschätzt.</p></div><div class="card"><h2>🗓️ Die nächsten 7 Tage</h2><div id="nextSevenDays" class="stat-bars"></div><p class="footer">Orientierung anhand deiner ausgewählten Fußball- und möglichen Lauftage – keine automatische Kalender-Synchronisierung.</p></div>';
  panels.dashboard.append(hero,grids[0],report,personal);
+ const v2Command=document.createElement('section');v2Command.className='v2-command';v2Command.innerHTML='<div class="v2-focus"><div class="v2-kicker">RUNLAB V2.0 · DAILY BRIEFING</div><h2 id="v2Greeting">Dein Tag. Dein Tempo.</h2><p id="v2FocusText">Deine Übersicht wird aus deinen gespeicherten Aktivitäten zusammengestellt.</p><div class="v2-focus-foot"><span class="v2-chip" id="v2LastActivity">Noch keine Aktivität</span><span class="v2-chip" id="v2RecoveryChip">Check-in offen</span><button class="v2-action" type="button" onclick="openQuickEntry()">＋ Einheit eintragen</button></div></div><div class="v2-overview"><div class="v2-overview-title"><b>Deine Daten im Überblick</b><span class="v2-version">V2.0</span></div><div class="v2-mini-grid"><div class="v2-mini"><span>Gesamte Laufstrecke</span><strong id="v2TotalKm">0,0</strong><small>km dokumentiert</small></div><div class="v2-mini"><span>Diese Woche</span><strong id="v2WeekRuns">0</strong><small>Laufeinheiten</small></div><div class="v2-mini"><span>Aktivitäten</span><strong id="v2TotalSessions">0</strong><small>alle Einheiten</small></div><div class="v2-mini"><span>Ø-Tempo</span><strong id="v2AvgPace">—</strong><small>min/km · aus Einträgen</small></div></div></div>';
+ panels.dashboard.insertBefore(v2Command,report);
  const analysis=document.createElement('div');analysis.className='card';analysis.style.marginTop='14px';analysis.innerHTML='<h2>📈 Laufanalyse · letzte 8 Wochen</h2><p class="muted" style="font-size:13px">Dokumentierte Laufkilometer pro Kalenderwoche. Leere Wochen werden nicht geschätzt.</p><div id="analysisChart" class="analysis-chart"></div><div class="analysis-foot" id="analysisSummary"></div>';
  const records=document.createElement('div');records.className='card';records.style.marginTop='14px';records.innerHTML='<h2>🏅 Persönliche Bestwerte</h2><p class="muted" style="font-size:13px">Nur aus deinen gespeicherten Laufeinheiten berechnet.</p><div id="personalRecords" class="record-grid"></div>';
 
@@ -613,7 +661,11 @@ function setupTabs(){
  panels.recovery.innerHTML='<div class="card"><div class="settings-kicker">RECOVERY CHECK-IN</div><h2>Erholung im Blick</h2><p class="muted">Ein kurzer Check-in hilft, Belastung und Wohlbefinden gemeinsam einzuordnen. Es gibt keine medizinische Bewertung.</p><label for="recoverySleep">Schlafdauer (Stunden)</label><input id="recoverySleep" type="number" min="0" max="24" step=".5" placeholder="z. B. 8"><label for="recoveryEnergy">Wie fühlst du dich heute?</label><select id="recoveryEnergy"><option value="gut">Gut / ausgeruht</option><option value="mittel">Mittel</option><option value="müde">Müde</option><option value="krank">Krank oder Schmerzen</option></select><label for="recoverySoreness">Muskelkater / körperliche Beschwerden</label><select id="recoverySoreness"><option value="keine">Keine</option><option value="leicht">Leicht</option><option value="deutlich">Deutlich</option><option value="schmerz">Schmerzen</option></select><label for="recoveryNote">Notiz (optional)</label><textarea id="recoveryNote" rows="2" placeholder="z. B. Fußballspiel, stressiger Schultag …"></textarea><button type="button" onclick="saveRecoveryCheckin()">Check-in speichern</button><div id="recoverySummary" class="coach" style="margin-top:14px">Noch kein Erholungs-Check-in gespeichert.</div></div><div class="card" style="margin-top:14px"><h2>⌚ Datenimport</h2><p class="muted">Du kannst eine JSON-Datei mit Schlaf- oder Wellnessdaten importieren, sofern dein Export entsprechende Felder enthält. Eine direkte Pixel-Watch-Synchronisierung ist nicht verfügbar.</p><input type="file" id="recoveryImportFile" accept=".json,application/json"><button type="button" class="secondary" onclick="importRecoveryData()">JSON importieren</button><p id="recoveryImportStatus" class="footer"></p></div>';
 
  const routePlanner=document.createElement('div');routePlanner.className='card';routePlanner.style.marginTop='14px';routePlanner.innerHTML='<h2>🗺️ Streckenplaner</h2><p class="muted">Lege geplante Strecken als Merkliste an und behalte deine GPS-Aufzeichnungen im Blick. Ohne Kartendienst gibt es keine automatische Navigation.</p><label for="plannedRouteName">Name der Strecke</label><input id="plannedRouteName" placeholder="z. B. Parkrunde"><label for="plannedRouteDistance">Geschätzte Distanz (km, optional)</label><input id="plannedRouteDistance" type="number" min="0" step=".1" placeholder="z. B. 3.5"><label for="plannedRouteNote">Startpunkt / Notiz</label><input id="plannedRouteNote" placeholder="z. B. Start am Parkeingang"><button type="button" onclick="savePlannedRoute()">Strecke merken</button><div id="plannedRouteList" class="stat-bars" style="margin-top:12px"></div><h3 style="margin-top:18px">Aufgezeichnete GPS-Strecken</h3><div id="routePlannerList" class="stat-bars"></div><button class="secondary" type="button" onclick="document.getElementById(&quot;mainTabs&quot;).querySelector(&quot;[data-tab=live]&quot;).click()">GPS-Lauf öffnen</button>';panels.plan.append(routePlanner);
- panels.settings.innerHTML='<div class="card settings-card"><div class="settings-kicker">RUNLAB PERSONALISIEREN</div><h2>Darstellung</h2><p class="muted">Passe das Erscheinungsbild an. Deine Auswahl wird auf diesem Gerät gespeichert.</p><div class="setting-row"><div><b>Darstellungsmodus</b><small>Automatisch folgt der Einstellung deines Geräts.</small></div><select id="themeSetting" aria-label="Darstellungsmodus"><option value="system">Automatisch (Gerät)</option><option value="light">Immer hell</option><option value="dark">Immer dunkel</option></select></div><div class="setting-row"><div><b>Akzentfarbe</b><small>Die RUNLAB-Hauptfarbe für aktive Elemente und Highlights.</small></div><select id="accentSetting" aria-label="Akzentfarbe"><option value="green">Emerald Green</option><option value="blue">Blau</option><option value="orange">Orange</option><option value="purple">Violett</option></select></div><div class="setting-preview"><span class="preview-dot"></span><span><b>RUNLAB</b><small id="appearanceSummary">Systemdesign · Emerald Green</small></span></div><div class="card settings-card"><h2>🛎️ Erinnerungen</h2><p class="muted">Lege fest, woran RUNLAB dich erinnern soll. Die Einstellungen werden auf diesem Gerät gespeichert.</p><div class="setting-row"><div><b>Trainingserinnerung</b><small>An ausgewählten Tagen zur gewünschten Uhrzeit.</small></div><input id="notifyTraining" type="checkbox" checked></div><div class="setting-row"><div><b>Wöchentlicher Überblick</b><small>Erinnert dich an deinen Wochenbericht.</small></div><input id="notifyWeekly" type="checkbox" checked></div><div class="setting-row"><div><b>Regenerations-Check-in</b><small>Kurze Erinnerung, deine Erholung einzuschätzen.</small></div><input id="notifyRecovery" type="checkbox"></div><div class="setting-row"><div><b>Wettkampf-Countdown</b><small>Erinnerung 30 und 7 Tage vor dem Termin.</small></div><input id="notifyRace" type="checkbox" checked></div><div class="setting-row"><div><b>Uhrzeit für Training</b><small>Standard: 17:00 Uhr.</small></div><input id="notifyTime" type="time" value="17:00"></div><div class="setting-row"><div><b>Wöchentlicher Bericht</b><small>Standard: Sonntag, 18:00 Uhr.</small></div><div class="notify-inline"><select id="notifyWeeklyDay"><option value="0">Sonntag</option><option value="1">Montag</option><option value="2">Dienstag</option><option value="3">Mittwoch</option><option value="4">Donnerstag</option><option value="5">Freitag</option><option value="6">Samstag</option></select><input id="notifyWeeklyTime" type="time" value="18:00"></div></div><div class="notify-days"><b>Trainingstage</b><div class="notify-day-grid"><label><input type="checkbox" class="notify-day" value="0" > Mo</label><label><input type="checkbox" class="notify-day" value="1" checked> Di</label><label><input type="checkbox" class="notify-day" value="2" > Mi</label><label><input type="checkbox" class="notify-day" value="3" > Do</label><label><input type="checkbox" class="notify-day" value="4" > Fr</label><label><input type="checkbox" class="notify-day" value="5" checked> Sa</label><label><input type="checkbox" class="notify-day" value="6" > So</label></div></div><div class="actions" style="margin-top:14px"><button id="saveNotifySettings">Einstellungen speichern</button><button class="secondary" id="enableBrowserNotifications">Pixel-Benachrichtigungen aktivieren</button></div><p id="notificationPermissionStatus" class="footer">In-App-Erinnerungen funktionieren, wenn RUNLAB geöffnet ist. Pixel-Benachrichtigungen benötigen deine Zustimmung.</p></div></div><div class="card settings-card"><h2>Über RUNLAB</h2><div class="setting-row"><div><b>Version</b><small>RUNLAB V14</small></div><span class="settings-value">V15</span></div><div class="setting-row"><div><b>Datenspeicherung</b><small>Trainingsdaten und Einstellungen bleiben lokal in diesem Browser.</small></div><span class="settings-value">Lokal</span></div><p class="footer">Das Ändern der Darstellung verändert oder löscht keine gespeicherten Trainingseinheiten.</p></div>';
+ panels.settings.innerHTML='<div class="card settings-card"><div class="settings-kicker">RUNLAB PERSONALISIEREN</div><h2>Darstellung</h2><p class="muted">Passe das Erscheinungsbild an. Deine Auswahl wird auf diesem Gerät gespeichert.</p><div class="setting-row"><div><b>Darstellungsmodus</b><small>Automatisch folgt der Einstellung deines Geräts.</small></div><select id="themeSetting" aria-label="Darstellungsmodus"><option value="system">Automatisch (Gerät)</option><option value="light">Immer hell</option><option value="dark">Immer dunkel</option></select></div><div class="setting-row"><div><b>Akzentfarbe</b><small>Die RUNLAB-Hauptfarbe für aktive Elemente und Highlights.</small></div><select id="accentSetting" aria-label="Akzentfarbe"><option value="green">Emerald Green</option><option value="blue">Blau</option><option value="orange">Orange</option><option value="purple">Violett</option></select></div><div class="setting-preview"><span class="preview-dot"></span><span><b>RUNLAB</b><small id="appearanceSummary">Systemdesign · Emerald Green</small></span></div><div class="card settings-card"><h2>🛎️ Erinnerungen</h2><p class="muted">Lege fest, woran RUNLAB dich erinnern soll. Die Einstellungen werden auf diesem Gerät gespeichert.</p><div class="setting-row"><div><b>Trainingserinnerung</b><small>An ausgewählten Tagen zur gewünschten Uhrzeit.</small></div><input id="notifyTraining" type="checkbox" checked></div><div class="setting-row"><div><b>Wöchentlicher Überblick</b><small>Erinnert dich an deinen Wochenbericht.</small></div><input id="notifyWeekly" type="checkbox" checked></div><div class="setting-row"><div><b>Regenerations-Check-in</b><small>Kurze Erinnerung, deine Erholung einzuschätzen.</small></div><input id="notifyRecovery" type="checkbox"></div><div class="setting-row"><div><b>Wettkampf-Countdown</b><small>Erinnerung 30 und 7 Tage vor dem Termin.</small></div><input id="notifyRace" type="checkbox" checked></div><div class="setting-row"><div><b>Uhrzeit für Training</b><small>Standard: 17:00 Uhr.</small></div><input id="notifyTime" type="time" value="17:00"></div><div class="setting-row"><div><b>Wöchentlicher Bericht</b><small>Standard: Sonntag, 18:00 Uhr.</small></div><div class="notify-inline"><select id="notifyWeeklyDay"><option value="0">Sonntag</option><option value="1">Montag</option><option value="2">Dienstag</option><option value="3">Mittwoch</option><option value="4">Donnerstag</option><option value="5">Freitag</option><option value="6">Samstag</option></select><input id="notifyWeeklyTime" type="time" value="18:00"></div></div><div class="notify-days"><b>Trainingstage</b><div class="notify-day-grid"><label><input type="checkbox" class="notify-day" value="0" > Mo</label><label><input type="checkbox" class="notify-day" value="1" checked> Di</label><label><input type="checkbox" class="notify-day" value="2" > Mi</label><label><input type="checkbox" class="notify-day" value="3" > Do</label><label><input type="checkbox" class="notify-day" value="4" > Fr</label><label><input type="checkbox" class="notify-day" value="5" checked> Sa</label><label><input type="checkbox" class="notify-day" value="6" > So</label></div></div><div class="actions" style="margin-top:14px"><button id="saveNotifySettings">Einstellungen speichern</button><button class="secondary" id="enableBrowserNotifications">Pixel-Benachrichtigungen aktivieren</button></div><p id="notificationPermissionStatus" class="footer">In-App-Erinnerungen funktionieren, wenn RUNLAB geöffnet ist. Pixel-Benachrichtigungen benötigen deine Zustimmung.</p></div></div><div class="card settings-card"><h2>Über RUNLAB</h2><div class="setting-row"><div><b>Version</b><small>RUNLAB V2.0</small></div><span class="settings-value">V2.0</span></div><div class="setting-row"><div><b>Datenspeicherung</b><small>Trainingsdaten und Einstellungen bleiben lokal in diesem Browser.</small></div><span class="settings-value">Lokal</span></div><p class="footer">Das Ändern der Darstellung verändert oder löscht keine gespeicherten Trainingseinheiten.</p></div>';
+ 
+ const backupCard=document.createElement('div');backupCard.className='card v2-backup';backupCard.innerHTML='<div class="settings-kicker">RUNLAB V2.0 · DATA VAULT</div><h2>Deine Daten. Sicher in deiner Hand.</h2><p class="muted">Erstelle eine vollständige Sicherung deiner lokalen RUNLAB-Daten – inklusive Läufen, Journal, Erholung, Strecken und Einstellungen. Beim Import werden vorhandene Einträge zusammengeführt und nicht einfach überschrieben.</p><div class="v2-backup-grid"><div class="v2-backup-tile"><b>⬇ Vollständiges Backup</b><p>Speichert alle unterstützten RUNLAB-Daten als JSON-Datei auf deinem Gerät.</p><div class="v2-backup-actions"><button type="button" onclick="runlabV2ExportBackup()">Backup exportieren</button></div></div><div class="v2-backup-tile"><b>⬆ Backup wiederherstellen</b><p>Importiert eine frühere RUNLAB-Sicherung und führt Listen mit deinen aktuellen Daten zusammen.</p><div class="v2-backup-actions"><input id="v2BackupFile" type="file" accept=".json,application/json"><button type="button" class="secondary" onclick="runlabV2ImportBackup()">Backup importieren</button></div></div></div><div id="v2BackupStatus" class="v2-status" aria-live="polite">Deine Daten bleiben weiterhin lokal auf diesem Gerät gespeichert.</div>';
+ panels.settings.append(backupCard);
+ 
  panels.notifications.innerHTML='<div class="card notification-center"><div class="notification-heading"><div><div class="settings-kicker">RUNLAB INBOX</div><h2>Benachrichtigungen</h2><p class="muted">Deine Erinnerungen und Hinweise auf einen Blick.</p></div><button class="secondary" id="markNotificationsRead">Alle gelesen</button></div><div id="notificationList"></div><div class="actions" style="margin-top:14px"><button class="secondary" id="closeNotifications">Zurück zum Dashboard</button><button class="secondary" id="clearNotifications">Verlauf leeren</button></div></div>';
  $('notificationBell').addEventListener('click',openNotifications);
  $('closeNotifications').addEventListener('click',()=>document.querySelector('#mainTabs .tab.active')?.click());
@@ -648,6 +700,7 @@ function setupTabs(){
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active',p===target));
   if(key==='coach')showCoachCompanion();else hideCoachCompanion();
   if(key==='journal')renderJournal();
+  if(key==='dashboard')runlabV2Render();
   closeNavigationDrawer();
   return true;
  };
@@ -803,8 +856,79 @@ function init(){
   $('runA').addEventListener('change',()=>{renderWeek();renderPersonalDashboard();renderDrawerOverview();});$('runB').addEventListener('change',()=>{renderWeek();renderPersonalDashboard();renderDrawerOverview();});
   renderWeek();renderSessions();renderCalendar();renderStats();renderWeeklyReport();renderPersonalDashboard();renderSavedRoutes();renderPlannedRoutes();renderRecovery();renderAchievements();renderJournal();
   $('journalDate').value=new Date().toISOString().slice(0,10);
+  runlabV2Render();
 }
 
+
+
+const RUNLAB_V2_KEYS=['runlab_sessions','runlab_journal_entries','runlab_preferences','runlab_notification_settings','runlab_notifications','runlab_routes','runlab_planned_routes','runlab_recovery'];
+function runlabV2Render(){
+ const $v=id=>document.getElementById(id);
+ const data=(()=>{try{return JSON.parse(localStorage.getItem('runlab_sessions')||'[]')}catch(e){return []}})();
+ const runs=data.filter(x=>/lauf|run/i.test(String(x.type||'')));
+ const total=runs.reduce((n,x)=>n+Math.max(0,Number(x.km)||0),0);
+ const now=new Date(),monday=new Date(now);monday.setHours(0,0,0,0);monday.setDate(monday.getDate()-((monday.getDay()+6)%7));
+ const weekly=runs.filter(x=>x.date&&new Date(x.date+'T12:00:00')>=monday);
+ const timed=runs.filter(x=>Number(x.km)>0&&Number(x.duration)>0);
+ const pace=timed.length?(()=>{const seconds=timed.reduce((n,x)=>n+Number(x.duration)*60,0)/timed.reduce((n,x)=>n+Number(x.km),0);return Math.floor(seconds/60)+':'+String(Math.round(seconds%60)).padStart(2,'0')})():'—';
+ const last=[...data].filter(x=>x.date).sort((a,b)=>b.date.localeCompare(a.date))[0];
+ const recovery=(()=>{try{return JSON.parse(localStorage.getItem('runlab_recovery')||'null')}catch(e){return null}})();
+ const hour=now.getHours(),greeting=hour<11?'Guten Morgen':hour<18?'Guten Tag':'Guten Abend';
+ if($v('v2Greeting'))$v('v2Greeting').textContent=greeting+' – bereit für deinen Tag?';
+ let focus='RUNLAB zeigt dir hier deine persönliche Übersicht. Trage Aktivitäten ein, damit dein Verlauf mit der Zeit aussagekräftiger wird.';
+ if(recovery&&(recovery.energy==='krank'||recovery.soreness==='schmerz'||recovery.soreness==='deutlich'))focus='Dein letzter Check-in weist auf Erholungsbedarf hin. Heute musst du nichts erzwingen – sprich bei Beschwerden mit einem Elternteil und lass sie bei Bedarf abklären.';
+ else if(weekly.length>=2)focus='Du hast diese Woche bereits '+weekly.length+' Laufeinheiten dokumentiert. Behalte auch Fußball, Alltag und Erholung im Blick – mehr ist nicht automatisch besser.';
+ else if(last)focus='Deine letzte dokumentierte Aktivität: '+last.type+' am '+new Date(last.date+'T12:00:00').toLocaleDateString('de-DE')+'. Plane den nächsten Schritt passend zu deinem Gefühl und deinem Wochenalltag.';
+ if($v('v2FocusText'))$v('v2FocusText').textContent=focus;
+ if($v('v2LastActivity'))$v('v2LastActivity').textContent=last?'Zuletzt: '+new Date(last.date+'T12:00:00').toLocaleDateString('de-DE'):'Noch keine Aktivität';
+ if($v('v2RecoveryChip'))$v('v2RecoveryChip').textContent=recovery?'Recovery: '+(recovery.energy||'erfasst'):'Recovery-Check-in offen';
+ if($v('v2TotalKm'))$v('v2TotalKm').textContent=total.toFixed(1).replace('.',',');
+ if($v('v2WeekRuns'))$v('v2WeekRuns').textContent=weekly.length;
+ if($v('v2TotalSessions'))$v('v2TotalSessions').textContent=data.length;
+ if($v('v2AvgPace'))$v('v2AvgPace').textContent=pace;
+}
+function runlabV2ReadBackup(){
+ const payload={app:'RUNLAB',version:'2.0',format:'runlab-backup',createdAt:new Date().toISOString(),data:{}};
+ RUNLAB_V2_KEYS.forEach(key=>{const raw=localStorage.getItem(key);if(raw!==null){try{payload.data[key]=JSON.parse(raw)}catch(e){payload.data[key]=raw}}});
+ return payload;
+}
+function runlabV2ExportBackup(){
+ const payload=runlabV2ReadBackup(),blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+ a.href=url;a.download='RUNLAB-V2-Backup-'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ const status=document.getElementById('v2BackupStatus');if(status)status.textContent='Backup erstellt: '+Object.keys(payload.data).length+' Datengruppen gesichert.';
+}
+function runlabV2MergeArray(current,incoming,key){
+ const a=Array.isArray(current)?current:[],b=Array.isArray(incoming)?incoming:[];
+ const signature=x=>key==='runlab_sessions'?[x.date,x.type,x.km,x.duration,x.effort].join('|'):key==='runlab_journal_entries'?(x.id||[x.date,x.title,x.note].join('|')):key==='runlab_notifications'?(x.id||[x.createdAt,x.title,x.message].join('|')):JSON.stringify(x);
+ const seen=new Set(a.map(signature));const merged=[...a];
+ b.forEach(item=>{const sig=signature(item);if(!seen.has(sig)){seen.add(sig);merged.push(item)}});
+ return merged;
+}
+function runlabV2ImportBackup(){
+ const input=document.getElementById('v2BackupFile'),status=document.getElementById('v2BackupStatus'),file=input&&input.files&&input.files[0];
+ if(!file){if(status)status.textContent='Bitte zuerst eine RUNLAB-Backup-Datei auswählen.';return;}
+ const reader=new FileReader();
+ reader.onload=()=>{
+  try{
+   const backup=JSON.parse(reader.result);
+   if(!backup||backup.format!=='runlab-backup'||!backup.data||typeof backup.data!=='object')throw new Error('Das ist keine gültige RUNLAB-Sicherungsdatei.');
+   let merged=0;
+   RUNLAB_V2_KEYS.forEach(key=>{
+    if(!(key in backup.data))return;
+    const incoming=backup.data[key];let current=null;
+    try{current=JSON.parse(localStorage.getItem(key)||'null')}catch(e){}
+    let value=incoming;
+    if(Array.isArray(incoming))value=runlabV2MergeArray(current,incoming,key);
+    else if(incoming&&typeof incoming==='object'&&current&&typeof current==='object'&&!Array.isArray(current))value=Object.assign({},current,incoming);
+    else if(key==='runlab_recovery'&&current&&incoming&&new Date(current.at||0)>new Date(incoming.at||0))value=current;
+    localStorage.setItem(key,typeof value==='string'?value:JSON.stringify(value));merged++;
+   });
+   if(status)status.textContent='Import abgeschlossen. '+merged+' Datengruppen wurden sicher zusammengeführt. RUNLAB aktualisiert deine Ansicht.';
+   if(typeof renderSessions==='function')renderSessions();if(typeof renderCalendar==='function')renderCalendar();if(typeof renderStats==='function')renderStats();if(typeof renderWeeklyReport==='function')renderWeeklyReport();if(typeof renderPersonalDashboard==='function')renderPersonalDashboard();if(typeof renderAchievements==='function')renderAchievements();if(typeof renderJournal==='function')renderJournal();if(typeof renderRecovery==='function')renderRecovery();if(typeof renderSavedRoutes==='function')renderSavedRoutes();if(typeof renderPlannedRoutes==='function')renderPlannedRoutes();if(typeof renderNotifications==='function')renderNotifications();runlabV2Render();
+  }catch(e){if(status)status.textContent='Import fehlgeschlagen: '+e.message;}
+ };
+ reader.readAsText(file);
+}
 
 function showCoachCompanion(){const el=$('coachCompanion');if(!el)return;$('coachGreeting').textContent=getCoachMessage();el.classList.remove('visible');el.classList.remove('coach-wave');requestAnimationFrame(()=>{el.classList.add('visible','coach-wave');});}
 function hideCoachCompanion(){const el=$('coachCompanion');if(el)el.classList.remove('visible');}
@@ -1021,4 +1145,5 @@ function clearData(){if(confirm('Alle gespeicherten Einheiten löschen?')){local
 init();
 </script>
 <script>if("serviceWorker" in navigator && location.protocol.startsWith("http")){navigator.serviceWorker.register("./sw.js").catch(()=>{});}</script>
+<button class="v2-fab" type="button" onclick="openQuickEntry()" aria-label="Training eintragen"><span>＋</span> Einheit eintragen</button>
 </body></html>
