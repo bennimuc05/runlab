@@ -919,8 +919,8 @@ function runlabV2ImportBackup(){
     try{current=JSON.parse(localStorage.getItem(key)||'null')}catch(e){}
     let value=incoming;
     if(Array.isArray(incoming))value=runlabV2MergeArray(current,incoming,key);
-    else if(incoming&&typeof incoming==='object'&&current&&typeof current==='object'&&!Array.isArray(current))value=Object.assign({},current,incoming);
     else if(key==='runlab_recovery'&&current&&incoming&&new Date(current.at||0)>new Date(incoming.at||0))value=current;
+    else if(incoming&&typeof incoming==='object'&&current&&typeof current==='object'&&!Array.isArray(current))value=Object.assign({},current,incoming);
     localStorage.setItem(key,typeof value==='string'?value:JSON.stringify(value));merged++;
    });
    if(status)status.textContent='Import abgeschlossen. '+merged+' Datengruppen wurden sicher zusammengeführt. RUNLAB aktualisiert deine Ansicht.';
