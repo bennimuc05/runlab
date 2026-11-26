@@ -602,6 +602,209 @@ input:focus,select:focus,textarea:focus{border-color:#34d399;box-shadow:0 0 0 4p
  .tab-panel.active{animation:none!important}
  *,*:before,*:after{scroll-behavior:auto!important;transition-duration:.01ms!important}
 }
+
+
+/* RUNLAB — Apple-native visual refinement (CSS only; app logic untouched) */
+:root{
+  --apple-bg:#f5f5f7;
+  --apple-surface:#ffffff;
+  --apple-surface-2:#f2f2f7;
+  --apple-text:#1d1d1f;
+  --apple-muted:#86868b;
+  --apple-line:rgba(0,0,0,.065);
+  --apple-accent:#007aff;
+  --apple-shadow:0 4px 22px rgba(0,0,0,.045);
+  --apple-glass:rgba(250,250,252,.78);
+  color-scheme:light;
+  accent-color:var(--apple-accent);
+}
+html{background:var(--apple-bg);scroll-behavior:smooth}
+body{
+  background:var(--apple-bg)!important;
+  color:var(--apple-text)!important;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",sans-serif!important;
+  letter-spacing:-.012em;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+body:before{opacity:.18}
+.wrap{max-width:1240px;padding:30px 26px 124px}
+.top{
+  position:sticky;top:0;z-index:80;
+  margin:0 -26px 24px;padding:16px 26px;
+  background:var(--apple-glass);
+  border-bottom:1px solid rgba(0,0,0,.045);
+  backdrop-filter:blur(22px) saturate(180%);
+  -webkit-backdrop-filter:blur(22px) saturate(180%);
+}
+.brand{color:var(--apple-muted)!important;font-size:11px;letter-spacing:.14em;font-weight:750}
+.top .muted,.muted,.stat small,.stat .sub,.footer,label,small{color:var(--apple-muted)}
+h1,h2,h3,h4,.hero h1,.card h2{
+  color:var(--apple-text);
+  letter-spacing:-.035em;
+  font-weight:750;
+}
+h1,.hero h1{font-size:clamp(30px,5vw,48px);line-height:1.04}
+h2,.card h2{font-size:20px}
+p{line-height:1.55}
+.hero{
+  color:#fff!important;
+  border:0!important;border-radius:24px!important;
+  padding:30px!important;
+  background:linear-gradient(135deg,#242a33 0%,#171b22 58%,#252b35 100%)!important;
+  box-shadow:0 12px 36px rgba(20,25,35,.10)!important;
+}
+.hero h1,.hero p,.hero .eyebrow,.hero .countdown-heading{color:#fff!important}
+.hero p{color:rgba(255,255,255,.76)!important}
+.hero .eyebrow{opacity:.72;letter-spacing:.13em}
+.race-countdown{background:rgba(255,255,255,.10)!important;border:1px solid rgba(255,255,255,.13)!important;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.card,.stat,.panel,.section-card,.record-item,.report-item,.day,.achievement,.session,.v2-mini,.v2-backup-tile{
+  background:var(--apple-surface)!important;
+  color:var(--apple-text)!important;
+  border:1px solid var(--apple-line)!important;
+  border-radius:20px!important;
+  box-shadow:var(--apple-shadow)!important;
+}
+.card,.section-card{padding:22px!important}
+.stat{padding:18px!important}
+.card h2,.card h3,.stat strong,.record-item b{color:var(--apple-text)!important}
+.stat small,.stat .sub,.card .muted{color:var(--apple-muted)!important}
+.layout,.grid{gap:16px}
+.tabs{
+  padding:5px!important;gap:4px!important;
+  border:1px solid rgba(0,0,0,.045)!important;
+  border-radius:16px!important;
+  background:rgba(255,255,255,.78)!important;
+  box-shadow:0 3px 16px rgba(0,0,0,.035)!important;
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+}
+.tabs .tab{
+  border:0!important;border-radius:12px!important;
+  color:#6e6e73!important;background:transparent!important;
+  font-weight:650;transition:all .2s cubic-bezier(.25,.1,.25,1)!important;
+}
+.tabs .tab.active{background:#e8f2ff!important;color:var(--apple-accent)!important;box-shadow:inset 0 0 0 1px rgba(0,122,255,.08)}
+button,.button,.v2-action,input,select,textarea{
+  font-family:inherit!important;
+  transition:all .2s cubic-bezier(.25,.1,.25,1)!important;
+}
+button,.button,.v2-action{
+  border-radius:12px;
+}
+button:active,.button:active,.v2-action:active{transform:scale(.98)}
+button:not(.tab):not(.cal-day):not(.coach-companion-close):not(.drawer-close){
+  box-shadow:none;
+}
+button.primary,.primary,.v2-action.primary,.drawer-quick,.v2-fab{
+  background:var(--apple-accent)!important;color:#fff!important;border:0!important;
+  box-shadow:0 5px 14px rgba(0,122,255,.18)!important;
+}
+button.secondary,.secondary,.v2-action.secondary{
+  background:#ededf0!important;color:var(--apple-text)!important;
+  border:1px solid rgba(0,0,0,.045)!important;
+}
+input,select,textarea{
+  min-height:42px;padding:10px 13px!important;
+  color:var(--apple-text)!important;background:#fff!important;
+  border:1px solid rgba(0,0,0,.09)!important;border-radius:12px!important;
+  box-shadow:inset 0 1px 2px rgba(0,0,0,.025)!important;
+}
+input:focus,select:focus,textarea:focus{
+  outline:3px solid rgba(0,122,255,.13)!important;border-color:rgba(0,122,255,.48)!important;
+}
+input[type=checkbox],input[type=radio]{accent-color:var(--apple-accent)}
+label{font-size:12px;font-weight:650;letter-spacing:.01em}
+.pill,.tag,.v2-chip{border-radius:999px!important;background:#eef5ff!important;color:#0066cc!important;border:1px solid rgba(0,122,255,.09)!important}
+.nav-drawer{
+  background:rgba(250,250,252,.94)!important;color:var(--apple-text)!important;
+  border-right:1px solid rgba(0,0,0,.06)!important;
+  box-shadow:20px 0 60px rgba(0,0,0,.10)!important;
+  backdrop-filter:blur(26px) saturate(180%)!important;
+  -webkit-backdrop-filter:blur(26px) saturate(180%)!important;
+}
+.drawer-overview,.drawer-next,.drawer-metrics>div,.drawer-race{
+  background:#fff!important;border:1px solid var(--apple-line)!important;
+  border-radius:16px!important;box-shadow:var(--apple-shadow)!important;
+}
+.drawer-head small,.drawer-greeting small{color:var(--apple-muted)!important}
+.drawer-close,.coach-companion-close{background:rgba(120,120,128,.12)!important;color:var(--apple-text)!important;border:0!important;border-radius:50%!important}
+#mobileDock{
+  z-index:110!important;
+  background:rgba(250,250,252,.84)!important;
+  border:1px solid rgba(0,0,0,.07)!important;
+  box-shadow:0 8px 30px rgba(0,0,0,.10)!important;
+  backdrop-filter:blur(24px) saturate(180%)!important;
+  -webkit-backdrop-filter:blur(24px) saturate(180%)!important;
+}
+#mobileDock button{color:#86868b!important;border-radius:12px!important}
+#mobileDock button.active{background:#e8f2ff!important;color:var(--apple-accent)!important;border-color:transparent!important}
+.v2-fab{z-index:105!important;bottom:94px!important;border-radius:999px!important}
+.coach-companion{z-index:100!important;filter:drop-shadow(0 8px 24px rgba(0,0,0,.10))}
+.coach-companion .coach-bubble{
+  background:rgba(255,255,255,.94)!important;color:var(--apple-text)!important;
+  border:1px solid rgba(0,0,0,.06)!important;border-radius:18px!important;
+  box-shadow:0 8px 28px rgba(0,0,0,.10)!important;
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+}
+.coach-bubble b{color:var(--apple-accent)!important}
+.cal-day,.day{border-radius:12px!important}
+.cal-day.today{background:#e8f2ff!important;color:var(--apple-accent)!important}
+.cal-day.has-run{border-color:rgba(0,122,255,.18)!important}
+.stat strong,.record-item b,.countdown-grid strong,.v2-number,.number,.metric-value{
+  font-variant-numeric:tabular-nums lining-nums;
+}
+.divider,hr{border-color:var(--apple-line)!important}
+a{color:var(--apple-accent)}
+button:focus-visible,[role=button]:focus-visible{outline:3px solid rgba(0,122,255,.25);outline-offset:2px}
+@media(max-width:760px){
+  .wrap{padding:12px 14px 128px}
+  .top{margin:0 -14px 16px;padding:13px 14px}
+  .hero{padding:22px!important;border-radius:20px!important}
+  .card,.section-card{padding:18px!important;border-radius:18px!important}
+  .tabs{overflow-x:auto;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  #mobileDock{bottom:max(9px,env(safe-area-inset-bottom))!important}
+  .v2-fab{bottom:92px!important;right:14px!important}
+  body:has(.coach-companion.visible) .v2-fab{bottom:164px!important}
+  .coach-companion{bottom:74px!important;right:8px!important;max-width:calc(100vw - 16px)!important}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important}
+}
+/* Dark appearance retains the same restrained Apple hierarchy. */
+body.dark-mode{
+  --apple-bg:#000000;--apple-surface:#1c1c1e;--apple-surface-2:#2c2c2e;
+  --apple-text:#f5f5f7;--apple-muted:#98989d;--apple-line:rgba(255,255,255,.075);
+  --apple-shadow:0 5px 24px rgba(0,0,0,.24);--apple-glass:rgba(28,28,30,.78);
+  color-scheme:dark;background:#000!important;color:var(--apple-text)!important;
+}
+body.dark-mode .top{background:var(--apple-glass);border-bottom-color:var(--apple-line)}
+body.dark-mode .card,body.dark-mode .stat,body.dark-mode .panel,body.dark-mode .section-card,
+body.dark-mode .record-item,body.dark-mode .report-item,body.dark-mode .day,body.dark-mode .achievement,
+body.dark-mode .session,body.dark-mode .v2-mini,body.dark-mode .v2-backup-tile{
+  background:#1c1c1e!important;color:var(--apple-text)!important;border-color:var(--apple-line)!important;
+}
+body.dark-mode h1,body.dark-mode h2,body.dark-mode h3,body.dark-mode .card h2,
+body.dark-mode .card h3,body.dark-mode .stat strong,body.dark-mode .record-item b{color:var(--apple-text)!important}
+body.dark-mode .muted,body.dark-mode label,body.dark-mode small{color:var(--apple-muted)!important}
+body.dark-mode .tabs,body.dark-mode #mobileDock{
+  background:rgba(28,28,30,.86)!important;border-color:var(--apple-line)!important;
+}
+body.dark-mode .tabs .tab{color:#b0b0b5!important}
+body.dark-mode .tabs .tab.active,body.dark-mode #mobileDock button.active{background:rgba(0,122,255,.20)!important;color:#64aaff!important}
+body.dark-mode input,body.dark-mode select,body.dark-mode textarea{
+  background:#2c2c2e!important;color:var(--apple-text)!important;border-color:rgba(255,255,255,.10)!important;
+}
+body.dark-mode button.secondary,body.dark-mode .secondary,body.dark-mode .v2-action.secondary{
+  background:#2c2c2e!important;color:var(--apple-text)!important;border-color:var(--apple-line)!important;
+}
+body.dark-mode .nav-drawer{background:rgba(28,28,30,.96)!important;color:var(--apple-text)!important;border-color:var(--apple-line)!important}
+body.dark-mode .drawer-overview,body.dark-mode .drawer-next,body.dark-mode .drawer-metrics>div,body.dark-mode .drawer-race{
+  background:#2c2c2e!important;border-color:var(--apple-line)!important;
+}
+body.dark-mode .coach-companion .coach-bubble{background:rgba(36,36,38,.96)!important;color:var(--apple-text)!important;border-color:var(--apple-line)!important}
+body.dark-mode .coach-bubble b{color:#64aaff!important}
+
 </style>
 </head>
 <body>
