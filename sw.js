@@ -1,4 +1,4 @@
-const CACHE = "runlab-v15.2-network-refresh";
+const CACHE = "runlab-v15.3-syntax-fix";
 const FILES = ["./", "./index.html", "./manifest.webmanifest", "./icon.svg"];
 
 self.addEventListener("install", event => {
