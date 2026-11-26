@@ -641,13 +641,22 @@ function setupTabs(){
   document.body.appendChild(companion);
   companion.querySelector('.coach-companion-close').addEventListener('click',hideCoachCompanion);
  }
- document.querySelectorAll('#mainTabs .tab').forEach(btn=>btn.addEventListener('click',()=>{
-  document.querySelectorAll('#mainTabs .tab').forEach(b=>b.classList.toggle('active',b===btn));
-  Object.entries(panels).forEach(([key,panel])=>panel.classList.toggle('active',key===btn.dataset.tab));
-  if(btn.dataset.tab==='coach')showCoachCompanion();else hideCoachCompanion();
-  if(btn.dataset.tab==='journal')renderJournal();
+ window.runlabShowTab=function(key){
+  const target=panels[key]||document.getElementById('panel-'+key);
+  if(!target)return false;
+  document.querySelectorAll('#mainTabs .tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===key));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active',p===target));
+  if(key==='coach')showCoachCompanion();else hideCoachCompanion();
+  if(key==='journal')renderJournal();
   closeNavigationDrawer();
- }));
+  return true;
+ };
+ document.getElementById('mainTabs').addEventListener('click',e=>{
+  const btn=e.target.closest('.tab[data-tab]');
+  if(!btn)return;
+  e.preventDefault();
+  window.runlabShowTab(btn.dataset.tab);
+ });
  $('menuTrigger').addEventListener('click',toggleNavigationDrawer);
  $('drawerClose').addEventListener('click',closeNavigationDrawer);
  $('drawerBackdrop').addEventListener('click',closeNavigationDrawer);
@@ -676,9 +685,9 @@ function renderNotificationList(){
  updateNotificationBell();
 }
 function openNotifications(){
- document.querySelectorAll('#mainTabs .tab').forEach(b=>b.classList.remove('active'));
- document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
- $('panel-notifications').classList.add('active');renderNotificationList();
+ if(window.runlabShowTab)window.runlabShowTab('notifications');
+ else{$('panel-notifications')?.classList.add('active');renderNotificationList();}
+ renderNotificationList();
 }
 function markNotificationsRead(){const a=loadNotifications().map(n=>({...n,read:true}));storeNotifications(a);renderNotificationList();}
 function clearNotifications(){storeNotifications([]);renderNotificationList();}
@@ -732,8 +741,12 @@ function closeNavigationDrawer(){
 }
 
 function readPreferences(){
- try{return Object.assign({theme:'system',accent:'green'},JSON.parse(localStorage.getItem('runlab_preferences')||'{}'));}
- catch(e){return {theme:'system',accent:'green'};}
+ try{
+  const saved=JSON.parse(localStorage.getItem('runlab_preferences')||'{}');
+  // RUNLAB V15: keep the interface dark by default unless the user explicitly chose light.
+  if(!saved.theme||saved.theme==='system')saved.theme='dark';
+  return Object.assign({theme:'dark',accent:'green'},saved);
+ }catch(e){return {theme:'dark',accent:'green'};}
 }
 function applyPreferences(){
  const theme=$('themeSetting')?.value||'system',accent=$('accentSetting')?.value||'green';
@@ -798,11 +811,10 @@ function hideCoachCompanion(){const el=$('coachCompanion');if(el)el.classList.re
 
 function updateRaceCountdown(){
  const target=new Date(2027,6,4,8,0,0,0).getTime();
- const diff=target-Date.now();
- const ids=['countDays','countHours','countMinutes','countSeconds'];
- if(diff<=0){$(ids[0]).textContent='0';$(ids[1]).textContent='00';$(ids[2]).textContent='00';$(ids[3]).textContent='00';return;}
- const days=Math.floor(diff/86400000),hours=Math.floor(diff%86400000/3600000),minutes=Math.floor(diff%3600000/60000),seconds=Math.floor(diff%60000/1000);
- [days,hours,minutes,seconds].forEach((v,i)=>$(ids[i]).textContent=i===0?String(v):String(v).padStart(2,'0'));
+ const diff=Math.max(0,target-Date.now());
+ const values=[Math.floor(diff/86400000),Math.floor(diff%86400000/3600000),Math.floor(diff%3600000/60000),Math.floor(diff%60000/1000)];
+ ['countDays','countHours','countMinutes','countSeconds'].forEach((id,i)=>{const el=$(id);if(el)el.textContent=i===0?String(values[i]):String(values[i]).padStart(2,'0');});
+ const drawer=$('drawerRaceDays');if(drawer)drawer.textContent=Math.ceil(diff/86400000)+' Tage';
 }
 function setupSwipeNavigation(){
  const keys=['dashboard','plan','coach','training','calendar','stats'];let startX=0,startY=0;
@@ -951,7 +963,7 @@ function renderDrawerOverview(){
  $('drawerNext').textContent=next?label:'Erholung / Plan prüfen';$('drawerNextMeta').textContent=next?next.toLocaleDateString('de-DE',{weekday:'long',day:'2-digit',month:'2-digit'}):'Keine passende Einheit in den nächsten 14 Tagen';
  const target=new Date(2027,6,4,8,0,0),left=Math.max(0,Math.ceil((target-now)/86400000));$('drawerRaceDays').textContent=left+' Tage';
 }
-function openQuickEntry(){const btn=document.querySelector('#mainTabs .tab[data-tab="training"]');if(btn)btn.click();setTimeout(()=>{$('date').scrollIntoView({behavior:'smooth',block:'center'});$('date').focus({preventScroll:true});},180);}
+function openQuickEntry(){if(window.runlabShowTab)window.runlabShowTab('training');else document.querySelector('#mainTabs .tab[data-tab="training"]')?.click();setTimeout(()=>{$('date')?.scrollIntoView({behavior:'smooth',block:'center'});$('date')?.focus({preventScroll:true});},180);}
 function changeMonth(delta){calendarMonth=new Date(calendarMonth.getFullYear(),calendarMonth.getMonth()+delta,1);renderCalendar();}
 function renderCalendar(){
  const y=calendarMonth.getFullYear(),m=calendarMonth.getMonth(),offset=(new Date(y,m,1).getDay()+6)%7,last=new Date(y,m+1,0).getDate();
