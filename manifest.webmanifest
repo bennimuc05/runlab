@@ -1,11 +1,11 @@
 {
-  "name": "RUNLAB – Half Marathon Command Center",
+  "name": "RUNLAB V2.0 – Personal Performance OS",
   "short_name": "RUNLAB",
   "lang": "de",
-  "start_url": "./",
+  "start_url": "./?app=v2",
   "display": "standalone",
   "background_color": "#0b1220",
-  "theme_color": "#101827",
+  "theme_color": "#16865B",
   "icons": [
     {
       "src": "icon.svg",
