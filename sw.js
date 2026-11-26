@@ -1,4 +1,4 @@
-const CACHE = "runlab-v2.0-emerald-revolution-1";
+const CACHE = "runlab-v2.0-navigation-fix-1";
 const FILES = ["./", "./index.html", "./manifest.webmanifest", "./icon.svg"];
 
 self.addEventListener("install", event => {
