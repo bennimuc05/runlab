@@ -1,4 +1,4 @@
-const CACHE = "runlab-v15-journal-coach";
+const CACHE = "runlab-v15.1-navigation-theme-fix";
 const FILES = ["./", "./index.html", "./manifest.webmanifest", "./icon.svg"];
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(FILES)));
